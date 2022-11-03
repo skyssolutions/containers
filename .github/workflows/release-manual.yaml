@@ -52,7 +52,7 @@ jobs:
             echo "changes=${output}" >> $GITHUB_OUTPUT
           fi
   images-build:
-    uses: onedr0p/containers/.github/workflows/action-image-build.yaml@main
+    uses: samipsolutions/containers/.github/workflows/action-image-build.yaml@main
     if: needs.generate-build-matrix.outputs.matrix != '[]'
     needs:
       - generate-build-matrix
