@@ -33,8 +33,9 @@ jobs:
       matrix: ${{ steps.get-changed.outputs.changes }}
     if: ${{ needs.get-changes.outputs.addedOrModifiedImages }} != '[]'
     steps:
-      - name: Install tools
-        run: sudo apt-get update && apt-get install moreutils jo
+      # Already installed in custom runner image.
+      #- name: Install tools
+      #  run: sudo apt-get install moreutils jo
 
       - name: Checkout
         uses: actions/checkout@v3
