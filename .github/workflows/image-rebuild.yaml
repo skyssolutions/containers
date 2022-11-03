@@ -26,7 +26,7 @@ jobs:
 
   generate-build-matrix:
     name: Generate matrix for building images
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs:
       - get-changes
     outputs:
