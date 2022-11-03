@@ -42,7 +42,7 @@ env:
 jobs:
   build-and-test:
     name: Build and test
-    runs-on: self-hosted
+    runs-on: ubuntu-22.04
     if: inputs.imagesToBuild != '' && inputs.imagesToBuild != '[]'
     strategy:
       matrix:
