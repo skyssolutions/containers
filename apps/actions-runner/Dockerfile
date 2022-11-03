@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 ARG TARGETPLATFORM
 ARG RUNNER_VERSION=2.299.1
 ARG DOCKER_CHANNEL=stable
-ARG DOCKER_VERSION=20.10.18
+ARG DOCKER_VERSION=20.10.19
 ARG DUMB_INIT_VERSION=1.2.5
 
 RUN test -n "$TARGETPLATFORM" || (echo "TARGETPLATFORM must be set" && false)
@@ -125,7 +125,7 @@ VOLUME /var/lib/docker
 ENV HOME=/home/runner
 # Add the Python "User Script Directory" to the PATH
 ENV PATH="${PATH}:${HOME}/.local/bin"
-ENV ImageOS=ubuntu20
+ENV ImageOS=ubuntu22
 
 RUN echo "PATH=${PATH}" > /etc/environment \
     && echo "ImageOS=${ImageOS}" >> /etc/environment
