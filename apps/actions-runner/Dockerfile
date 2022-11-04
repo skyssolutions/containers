@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 ARG TARGETPLATFORM
 ARG RUNNER_VERSION=2.299.1
@@ -125,7 +125,7 @@ VOLUME /var/lib/docker
 ENV HOME=/home/runner
 # Add the Python "User Script Directory" to the PATH
 ENV PATH="${PATH}:${HOME}/.local/bin"
-ENV ImageOS=ubuntu22
+ENV ImageOS=ubuntu20
 
 RUN echo "PATH=${PATH}" > /etc/environment \
     && echo "ImageOS=${ImageOS}" >> /etc/environment
