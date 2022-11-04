@@ -195,14 +195,14 @@ jobs:
           cat "goss_container_log_output"
           echo "::endgroup::"
 
-      - name: Send Discord Webhook
-        uses: sarisia/actions-status-discord@v1
-        if: ${{ always() && inputs.sendNotification == 'true' }}
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          title: ${{ steps.build-failed.outputs.message || steps.build-success.outputs.message }}
-          color: ${{ steps.build-failed.outputs.color }}
-          username: GitHub Actions
+      #- name: Send Discord Webhook
+      #  uses: sarisia/actions-status-discord@v1
+      #  if: ${{ always() && inputs.sendNotification == 'true' }}
+      #  with:
+      #    webhook: ${{ secrets.DISCORD_WEBHOOK }}
+      #    title: ${{ steps.build-failed.outputs.message || steps.build-success.outputs.message }}
+      #    color: ${{ steps.build-failed.outputs.color }}
+      #    username: GitHub Actions
 
   # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
   build_success:
