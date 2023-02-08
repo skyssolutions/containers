@@ -26,6 +26,7 @@ RUN apt update -y \
     iptables \
     jq \
     yq \
+    jo \
     libunwind8 \
     locales \
     netcat \
