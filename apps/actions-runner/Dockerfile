@@ -25,6 +25,7 @@ RUN apt update -y \
     iputils-ping \
     iptables \
     jq \
+    yq \
     libunwind8 \
     locales \
     netcat \
