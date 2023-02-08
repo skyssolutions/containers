@@ -14,7 +14,7 @@ env:
 jobs:
   generate-build-matrix:
     name: Generate matrix for building images
-    runs-on: ["self-hosted", "X64"]
+    runs-on: ["self-hosted"]
     outputs:
       matrix: ${{ steps.fetch.outputs.changes }}
     steps:
