@@ -1,9 +1,9 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ARG TARGETPLATFORM
-ARG RUNNER_VERSION=2.299.1
+ARG RUNNER_VERSION=2.304.0
 ARG DOCKER_CHANNEL=stable
-ARG DOCKER_VERSION=20.10.19
+ARG DOCKER_VERSION=24.0.2
 ARG DUMB_INIT_VERSION=1.2.5
 
 RUN test -n "$TARGETPLATFORM" || (echo "TARGETPLATFORM must be set" && false)
@@ -25,7 +25,6 @@ RUN apt update -y \
     iputils-ping \
     iptables \
     jq \
-    yq \
     jo \
     libunwind8 \
     locales \
