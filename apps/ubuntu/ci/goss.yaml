@@ -3,7 +3,7 @@
 file:
   /scripts/greeting.sh:
     exists: true
-  /scripts/umask.sh:
+  /scripts/unmask.sh:
     exists: true
   /scripts/vpn.sh:
     exists: true
