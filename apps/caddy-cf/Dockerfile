@@ -1,4 +1,8 @@
+ARG VERSION
 FROM caddy:2-builder AS builder
+ARG TARGETOS
+ARG TARGETARCH
+ARG TARGETPLATFORM
 
 RUN xcaddy build \
     --with github.com/caddy-dns/cloudflare
