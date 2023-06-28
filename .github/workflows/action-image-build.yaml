@@ -62,6 +62,7 @@ jobs:
         id: generate-matrices
         run: |
           matrices=$(./.github/scripts/prepare-images.py '${{ inputs.imagesToBuild }}' '${{ inputs.pushImages }}')
+          echo ${matrices}
           echo "matrices=${matrices}" >> $GITHUB_OUTPUT
 
   build-platform-images:
