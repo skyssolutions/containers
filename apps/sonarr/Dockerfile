@@ -28,7 +28,7 @@ RUN \
     && \
     mkdir -p /app/bin \
     && \
-    mkdir -p /.local  && chown -R kah:kah /.local \
+    mkdir -p /.local  && chown -R kah:100 /.local \
     && \
     curl -fsSL "https://download.sonarr.tv/v3/${SONARR__BRANCH}/${VERSION}/Sonarr.${SONARR__BRANCH}.${VERSION}.linux.tar.gz" \
         | tar xzf - -C /app/bin --strip-components=1 \
@@ -50,7 +50,7 @@ RUN \
     && chmod -R 755 /app \
     && printf "umask %d\n" "${UMASK}" >> /etc/bash.bashrc
 
-USER kah
+USER kah:100
 
 COPY ./apps/sonarr/config.xml.tmpl /app/config.xml.tmpl
 COPY ./apps/sonarr/entrypoint.sh /entrypoint.sh

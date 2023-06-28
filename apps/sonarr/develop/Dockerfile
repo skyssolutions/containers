@@ -21,7 +21,7 @@ RUN \
     && \
     mkdir -p /app/bin \
     && \
-    mkdir -p /.local  && chown -R kah:kah /.local \
+    mkdir -p /.local  && chown -R kah:100 /.local \
     && \
     curl -fsSL "https://download.sonarr.tv/v4/${SONARR__BRANCH}/${VERSION}/Sonarr.${SONARR__BRANCH}.${VERSION}.linux-musl-${ARCH}.tar.gz" \
         | tar xzf - -C /app/bin --strip-components=1 \
@@ -34,7 +34,7 @@ RUN \
     && chmod -R 755 /app \
     && rm -rf /tmp/*
 
-USER kah
+USER kah:100
 
 COPY ./apps/sonarr/${SONARR__BRANCH}/config.xml.tmpl /app/config.xml.tmpl
 COPY ./apps/sonarr/${SONARR__BRANCH}/entrypoint.sh /entrypoint.sh
