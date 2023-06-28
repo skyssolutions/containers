@@ -75,6 +75,10 @@ if __name__ == "__main__":
                 continue
             to_append = app.copy()
             to_append["platform"] = platform
+            if platform == "linux/amd64":
+                to_append["buildjet_builder"] = "buildjet-2vcpu-ubuntu-2204"
+            elif platform == "linux/arm64":
+                to_append["buildjet_builder"] = "buildjet-2vcpu-ubuntu-2204-arm"
             if platform != "linux/amd64":
                 to_append["chan_tests_enabled"] = False
             out["imagePlatformPermutations"].append(to_append)
@@ -85,6 +89,7 @@ if __name__ == "__main__":
             "channel": channel,
             "tags": [app["chan_tag_rolling"], app["chan_tag_version"]],
             "platforms": cfg["platforms"],
+            "buildjet_builder": cfg["buildjet_builder"],
             "version": app["chan_upstream_version"],
         }
         out["manifestsToBuild"].append(manifest)
