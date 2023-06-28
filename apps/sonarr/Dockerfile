@@ -28,6 +28,8 @@ RUN \
     && \
     mkdir -p /app/bin \
     && \
+    chown -R kah:kah /usr/lib/python3.11/site-packages \
+    && \
     curl -fsSL "https://download.sonarr.tv/v3/${SONARR__BRANCH}/${VERSION}/Sonarr.${SONARR__BRANCH}.${VERSION}.linux.tar.gz" \
         | tar xzf - -C /app/bin --strip-components=1 \
     && \
