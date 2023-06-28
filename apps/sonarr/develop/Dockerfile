@@ -21,7 +21,7 @@ RUN \
     && \
     mkdir -p /app/bin \
     && \
-    chown -R kah:kah /usr/lib/python3.*/site-packages \
+    mkdir -p /.local  && chown -R kah:kah /.local \
     && \
     curl -fsSL "https://download.sonarr.tv/v4/${SONARR__BRANCH}/${VERSION}/Sonarr.${SONARR__BRANCH}.${VERSION}.linux-musl-${ARCH}.tar.gz" \
         | tar xzf - -C /app/bin --strip-components=1 \
