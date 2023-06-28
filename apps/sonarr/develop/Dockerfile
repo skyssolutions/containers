@@ -11,7 +11,7 @@ ENV \
     SONARR__ANALYTICS_ENABLED="False"
 
 #hadolint ignore=DL3018
-RUN apk add --no-cache ca-certificates icu-libs libintl sqlite-libs xmlstarlet python3
+RUN apk add --no-cache ca-certificates icu-libs libintl sqlite-libs xmlstarlet python3 py3-pip
 #hadolint ignore=DL3059
 RUN \
     case "${TARGETPLATFORM}" in \

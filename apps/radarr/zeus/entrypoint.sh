@@ -1,5 +1,24 @@
 #!/usr/bin/env bash
 
+# Function to check if a file is executable
+is_executable() {
+    local file="$1"
+    [[ -x "$file" ]]
+}
+
+# Execute all executable files in a directory
+execute_files_in_directory() {
+    local directory="$1"
+    if [[ -d "$directory" ]]; then
+        for file in "$directory"/*; do
+            if is_executable "$file"; then
+                echo "Executing $file"
+                "$file"
+            fi
+        done
+    fi
+}
+
 #shellcheck disable=SC1091
 test -f "/scripts/umask.sh" && source "/scripts/umask.sh"
 
@@ -47,6 +66,9 @@ if [[ "${RADARR__LOG_LEVEL}" == "debug" || "${current_log_level}" == "debug" ]];
     echo "Starting with the following configuration..."
     xmlstarlet format --omit-decl /config/config.xml
 fi
+
+# Execute executable files in the specified directory
+execute_files_in_directory "/custom_scripts"
 
 #shellcheck disable=SC2086
 exec \
