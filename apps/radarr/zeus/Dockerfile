@@ -21,7 +21,7 @@ RUN \
     && \
     mkdir -p /app/bin \
     && \
-    chown -R kah:kah /usr/lib/python3.11/site-packages \
+    chown -R kah:kah /usr/lib/python3.*/site-packages \
     && \
     curl -fsSL "https://radarr.servarr.com/v1/update/${RADARR__BRANCH}/updatefile?version=${VERSION}&os=linuxmusl&runtime=netcore&arch=${ARCH}" \
         | tar xzf - -C /app/bin --strip-components=1 \
