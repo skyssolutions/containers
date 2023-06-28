@@ -1,5 +1,9 @@
 ---
-name: "Release: Manual"
+name: "Manual Release"
+
+concurrency:
+  group: container-release
+  cancel-in-progress: false
 
 on:
   workflow_dispatch:
@@ -21,15 +25,14 @@ env:
   TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  generate-build-matrix:
-    name: Generate matrix for building images
-    runs-on: ubuntu-22.04
+  determine-images:
+    name: Determine Images to Build
+    runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.determine-images.outputs.changes }}
+      imagesToBuild: ${{ steps.determine-images.outputs.changes }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ env.TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Install tools
         run: sudo apt-get install moreutils jo
@@ -48,16 +51,17 @@ jobs:
               image="$(jo app="${{ inputs.app }}" channel="$channel")"
               images_array+=($image)
             done
+
             output="$(jo -a ${images_array[*]})"
             echo "changes=${output}" >> $GITHUB_OUTPUT
+            echo "Changes:\n ${output}"
           fi
+
   images-build:
-    uses: samipsolutions/containers/.github/workflows/action-image-build.yaml@main
-    if: needs.generate-build-matrix.outputs.matrix != '[]'
-    needs:
-      - generate-build-matrix
+    uses: ./.github/workflows/action-image-build.yaml
+    if: needs.determine-images.outputs.imagesToBuild != '[]'
+    needs: ["determine-images"]
     with:
-      imagesToBuild: "${{ needs.generate-build-matrix.outputs.matrix }}"
+      imagesToBuild: "${{ needs.determine-images.outputs.imagesToBuild }}"
       pushImages: "${{ github.event.inputs.push }}"
-      updateMetadata: "${{ github.event.inputs.push }}"
     secrets: inherit
