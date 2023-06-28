@@ -21,7 +21,7 @@ RUN \
     && \
     mkdir -p /app/bin \
     && \
-    mkdir -p /.local  && chown -R kah:kah /.local \
+    mkdir -p /.local  && chown -R kah:100 /.local \
     && \
     curl -fsSL "https://radarr.servarr.com/v1/update/${RADARR__BRANCH}/updatefile?version=${VERSION}&os=linuxmusl&runtime=netcore&arch=${ARCH}" \
         | tar xzf - -C /app/bin --strip-components=1 \
@@ -34,7 +34,7 @@ RUN \
     && chmod -R 755 /app \
     && rm -rf /tmp/*
 
-USER kah
+USER kah:100
 
 COPY ./apps/radarr/zeus/config.xml.tmpl /app/config.xml.tmpl
 COPY ./apps/radarr/zeus/entrypoint.sh /entrypoint.sh
