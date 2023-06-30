@@ -123,7 +123,7 @@ jobs:
         with:
           build-args: |-
             VERSION=${{ matrix.image.chan_upstream_version }}
-            DEBIAN_VERSION={{ matrix.image.chan_debian_version }}
+            DEBIAN_VERSION=${{ matrix.image.chan_debian_version }}
             CHANNEL=${{ matrix.image.channel }}
           context: .
           platforms: ${{ matrix.image.platform }}
