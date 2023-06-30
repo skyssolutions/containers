@@ -7,7 +7,7 @@
 #Channels: {
 	name: #NonEmptyString
 	platforms: [...#AcceptedPlatforms]
-	debian_version: #AcceptedDebianVersions
+	debian_version?: #AcceptedDebianVersions
 	stable: bool
 	tests: {
 		enabled: bool
