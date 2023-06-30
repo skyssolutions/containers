@@ -11,6 +11,7 @@ RUN apt update -y && apt install -y build-essential \
 
 ARG CHANNEL
 ARG MONGO_VERSION=${CHANNEL}
+ENV MONGO_VERSION=${MONGO_VERSION}
 
 RUN mkdir /src && \
     curl -o /tmp/mongo.tar.gz -L "https://github.com/mongodb/mongo/archive/refs/tags/r${MONGO_VERSION}.tar.gz" && \
