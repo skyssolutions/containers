@@ -14,7 +14,7 @@ RUN apt-get update -y && apt-get install -y build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 ARG CHANNEL=5.0.18
 ENV MONGO_VERSION=$CHANNEL
