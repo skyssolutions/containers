@@ -89,7 +89,7 @@ if __name__ == "__main__":
             if platform == "linux/amd64":
                 to_append["buildjet_builder"] = "buildjet-4vcpu-ubuntu-2204"
             elif platform == "linux/arm64":
-                to_append["buildjet_builder"] = "buildjet-4vcpu-ubuntu-2204-arm"
+                to_append["buildjet_builder"] = "buildjet-8vcpu-ubuntu-2204-arm"
             if platform != "linux/amd64":
                 to_append["chan_tests_enabled"] = False
             out["imagePlatformPermutations"].append(to_append)
