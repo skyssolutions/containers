@@ -1,0 +1,30 @@
+{
+  "app": "mongo-no-avx",
+  "base": false,
+  "channels": [
+    {
+      "name": "5.0.18",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "stable": true,
+      "tests": {
+        "enabled": false,
+        "type": "cli"
+      }
+    },
+    {
+      "name": "6.3.2",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "stable": true,
+      "tests": {
+        "enabled": false,
+        "type": "cli"
+      }
+    }
+  ]
+}
