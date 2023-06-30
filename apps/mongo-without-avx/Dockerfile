@@ -10,8 +10,6 @@ RUN apt update -y && apt install -y build-essential \
         curl \
     && rm -rf /var/lib/apt/lists/*
 
-COPY get-source.sh /get-source.sh
-
 ARG CHANNEL=5.0.18
 ENV MONGO_VERSION=$CHANNEL
 
@@ -22,7 +20,7 @@ RUN mkdir /src && \
 
 WORKDIR /src
 
-COPY os_patch.diff /os_patch.diff
+COPY ./apps/mongo-without-avx/os_patch.diff /os_patch.diff
 RUN patch -p1 < /os_patch.diff
 
 ARG NUM_JOBS=
