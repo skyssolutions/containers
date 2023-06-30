@@ -2,7 +2,9 @@ ARG DEBIAN_VERSION=10
 
 FROM debian:${DEBIAN_VERSION} as build
 
-RUN apt update -y && apt install -y build-essential \
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update -y && apt-get install -y build-essential \
         libcurl4-openssl-dev \
         liblzma-dev \
         libffi-dev \
@@ -10,6 +12,9 @@ RUN apt update -y && apt install -y build-essential \
         python3-pip \
         curl \
     && rm -rf /var/lib/apt/lists/*
+
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 ARG CHANNEL=5.0.18
 ENV MONGO_VERSION=$CHANNEL
@@ -26,6 +31,7 @@ RUN patch -p1 < /os_patch.diff
 ARG NUM_JOBS=
 
 RUN export GIT_PYTHON_REFRESH=quiet && \
+    python3 -m pip -U pip && \
     python3 -m pip install requirements_parser && \
     python3 -m pip install -r etc/pip/compile-requirements.txt && \
     if [ "${NUM_JOBS}" -gt 0 ]; then export JOBS_ARG="-j ${NUM_JOBS}"; fi && \
@@ -37,8 +43,10 @@ RUN export GIT_PYTHON_REFRESH=quiet && \
 
 FROM debian:${DEBIAN_VERSION}
 
-RUN apt update -y && \
-    apt install -y libcurl4 && \
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update -y && \
+    apt-get install -y libcurl4 && \
     apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
