@@ -18,7 +18,7 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 ARG CHANNEL=5.0.18
 ENV MONGO_VERSION=$CHANNEL
-ENV PATH:$PATH:$HOME/.cargo/bin
+ENV PATH=$PATH:$HOME/.cargo/bin
 
 COPY ./apps/mongo-without-avx/get-source.sh /get-source.sh
 
