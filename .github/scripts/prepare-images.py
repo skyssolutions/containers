@@ -70,6 +70,9 @@ if __name__ == "__main__":
             app["chan_tag_version"] = f"{name}-{channel}:{app['chan_upstream_version']}"
             app["chan_tag_testing"] = f"{name}-{channel}:testing"
 
+        if app["debian_version"]:
+            app["chan_debian_version"] = app["debian_version"]
+
         for platform in cfg["platforms"]:
             if platform != "linux/amd64" and not forRelease:
                 continue
