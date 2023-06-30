@@ -14,10 +14,9 @@ RUN apt update -y && apt install -y build-essential \
 ARG CHANNEL=5.0.18
 ENV MONGO_VERSION=$CHANNEL
 
-RUN mkdir /src && \
-    curl -o /tmp/mongo.tar.gz -L https://github.com/mongodb/mongo/archive/refs/tags/r${MONGO_VERSION}.tar.gz && \
-    tar xaf /tmp/mongo.tar.gz --strip-components=1 -C /src && \
-    rm /tmp/mongo.tar.gz
+COPY ./apps/mongo-without-avx/get-source.sh /get-source.sh
+
+RUN mkdir /src && ./get-source.sh
 
 WORKDIR /src
 
