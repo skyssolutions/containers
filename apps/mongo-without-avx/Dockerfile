@@ -4,7 +4,7 @@ FROM debian:${DEBIAN_VERSION} as build
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update -y && apt-get install -y build-essential \
+RUN apt-get update -y && apt-get install -y build-essential gcc-11 \
         libcurl4-openssl-dev \
         liblzma-dev \
         libffi-dev \
