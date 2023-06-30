@@ -7,6 +7,7 @@
 #Channels: {
 	name: #NonEmptyString
 	platforms: [...#AcceptedPlatforms]
+	debian_version: [...#AcceptedDebianVersions]
 	stable: bool
 	tests: {
 		enabled: bool
@@ -16,3 +17,4 @@
 
 #NonEmptyString:           string & !=""
 #AcceptedPlatforms:        "linux/amd64" | "linux/arm64"
+#AcceptedDebianVersions:   "10" | "11" | "9"
