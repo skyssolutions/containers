@@ -62,12 +62,14 @@ if __name__ == "__main__":
         if app["chan_stable"]:
             app["chan_image_name"] = name
             app["chan_tag_rolling"] = f"{name}:rolling"
-            app["chan_tag_version"] = f"{name}:{app['chan_upstream_version']}"
+            if {app['chan_upstream_version']} is not None:
+                app["chan_tag_version"] = f"{name}:{app['chan_upstream_version']}"
             app["chan_tag_testing"] = f"{name}:testing"
         else:
             app["chan_image_name"] = f"{name}-{channel}"
             app["chan_tag_rolling"] = f"{name}-{channel}:rolling"
-            app["chan_tag_version"] = f"{name}-{channel}:{app['chan_upstream_version']}"
+            if {app['chan_upstream_version']} is not None:
+                app["chan_tag_version"] = f"{name}-{channel}:{app['chan_upstream_version']}"
             app["chan_tag_testing"] = f"{name}-{channel}:testing"
         try:
             if cfg["debian_version"]:
