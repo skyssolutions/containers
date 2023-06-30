@@ -66,7 +66,7 @@ jobs:
           echo "matrices=${matrices}" >> $GITHUB_OUTPUT
 
   build-platform-images:
-    name: Build/Test ${{ matrix.image.chan_image_name }} - ${{ matrix.image.platform }}
+    name: Build/Test ${{ matrix.image.chan_image_name }} (${{ matrix.image.channel }}) - ${{ matrix.image.platform }}
     runs-on: ${{ matrix.image.buildjet_builder }}
     needs:
       - prepare
@@ -128,8 +128,8 @@ jobs:
           platforms: ${{ matrix.image.platform }}
           file: ${{ matrix.image.chan_dockerfile }}
           outputs: ${{ steps.prepare-build-outputs.outputs.outputs }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=registry,ref=samip5/${{ matrix.image.chan_image_name }}:latest
+          cache-to: type=inline
 
       - name: Run Goss Tests
         id: dgoss
