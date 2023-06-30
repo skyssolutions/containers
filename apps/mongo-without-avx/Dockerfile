@@ -19,7 +19,7 @@ RUN mkdir /src && \
 
 WORKDIR /src
 
-COPY ./os_patch.diff /os_patch.diff
+COPY ./apps/mongo-without-avx/os_patch.diff /os_patch.diff
 RUN patch -p1 < /os_patch.diff
 
 ARG NUM_JOBS=
