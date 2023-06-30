@@ -4,6 +4,7 @@
   "channels": [
     {
       "name": "5.0.18",
+      "debian_version": "10",
       "platforms": [
         "linux/amd64",
         "linux/arm64"
