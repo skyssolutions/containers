@@ -9,7 +9,7 @@
         "linux/amd64",
         "linux/arm64"
       ],
-      "stable": true,
+      "stable": false,
       "tests": {
         "enabled": false,
         "type": "cli"
@@ -22,20 +22,7 @@
         "linux/amd64",
         "linux/arm64"
       ],
-      "stable": true,
-      "tests": {
-        "enabled": false,
-        "type": "cli"
-      }
-    },
-    {
-      "name": "6.3.2",
-      "debian_version": "12",
-      "platforms": [
-        "linux/amd64",
-        "linux/arm64"
-      ],
-      "stable": true,
+      "stable": false,
       "tests": {
         "enabled": false,
         "type": "cli"
