@@ -62,7 +62,7 @@ if __name__ == "__main__":
         if app["chan_stable"]:
             app["chan_image_name"] = name
             app["chan_tag_rolling"] = f"{name}:rolling"
-            if {app['chan_upstream_version']} == f"{name}:":
+            if {app['chan_upstream_version']} == "":
                 pass
             else:
                 app["chan_tag_version"] = f"{name}:{app['chan_upstream_version']}"
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         else:
             app["chan_image_name"] = f"{name}-{channel}"
             app["chan_tag_rolling"] = f"{name}-{channel}:rolling"
-            if {app['chan_upstream_version']} == f"{name}:":
+            if {app['chan_upstream_version']} == "":
                 pass
             else:
                 app["chan_tag_version"] = f"{name}-{channel}:{app['chan_upstream_version']}"
