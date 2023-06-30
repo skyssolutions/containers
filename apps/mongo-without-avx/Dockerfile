@@ -18,6 +18,7 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 ARG CHANNEL=5.0.18
 ENV MONGO_VERSION=$CHANNEL
+ENV PATH:$PATH:$HOME/.cargo/bin
 
 COPY ./apps/mongo-without-avx/get-source.sh /get-source.sh
 
@@ -31,7 +32,7 @@ RUN patch -p1 < /os_patch.diff
 ARG NUM_JOBS=
 
 RUN export GIT_PYTHON_REFRESH=quiet && \
-    python3 -m pip -U pip && \
+    python3 -m pip install --upgrade pip && \
     python3 -m pip install requirements_parser && \
     python3 -m pip install -r etc/pip/compile-requirements.txt && \
     if [ "${NUM_JOBS}" -gt 0 ]; then export JOBS_ARG="-j ${NUM_JOBS}"; fi && \
