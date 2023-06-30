@@ -1,5 +1,5 @@
 {
-  "app": "mongo-no-avx",
+  "app": "mongo-without-avx",
   "base": false,
   "channels": [
     {
