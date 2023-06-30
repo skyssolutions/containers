@@ -1,26 +1,28 @@
-FROM debian:11 as build
+ARG DEBIAN_VERSION=10
+
+FROM debian:${DEBIAN_VERSION} as build
 
 RUN apt update -y && apt install -y build-essential \
         libcurl4-openssl-dev \
         liblzma-dev \
         libssl-dev \
-        python-dev-is-python3 \
         python3-pip \
         curl \
-    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/apt/lists/*
 
-ARG CHANNEL
-ARG MONGO_VERSION=${CHANNEL}
-ENV MONGO_VERSION=${MONGO_VERSION}
+COPY get-source.sh /get-source.sh
+
+ARG CHANNEL=5.0.18
+ENV MONGO_VERSION=$CHANNEL
 
 RUN mkdir /src && \
-    curl -o /tmp/mongo.tar.gz -L "https://github.com/mongodb/mongo/archive/refs/tags/r${MONGO_VERSION}.tar.gz" && \
+    curl -o /tmp/mongo.tar.gz -L https://github.com/mongodb/mongo/archive/refs/tags/r${MONGO_VERSION}.tar.gz && \
     tar xaf /tmp/mongo.tar.gz --strip-components=1 -C /src && \
     rm /tmp/mongo.tar.gz
 
 WORKDIR /src
 
-COPY ./apps/mongo-without-avx/os_patch.diff /os_patch.diff
+COPY os_patch.diff /os_patch.diff
 RUN patch -p1 < /os_patch.diff
 
 ARG NUM_JOBS=
@@ -35,7 +37,7 @@ RUN export GIT_PYTHON_REFRESH=quiet && \
     strip --strip-debug /install/bin/mongos && \
     rm -rf build
 
-FROM debian:11
+FROM debian:${DEBIAN_VERSION}
 
 RUN apt update -y && \
     apt install -y libcurl4 && \
