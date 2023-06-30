@@ -5,6 +5,7 @@ FROM debian:${DEBIAN_VERSION} as build
 RUN apt update -y && apt install -y build-essential \
         libcurl4-openssl-dev \
         liblzma-dev \
+        libffi-dev \
         libssl-dev \
         python3-pip \
         curl \
