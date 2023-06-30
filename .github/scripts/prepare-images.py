@@ -104,15 +104,13 @@ if __name__ == "__main__":
         try:
             manifest_tags_with_version = {
                 "tags": [app["chan_tag_rolling"], app["chan_tag_version"]],
-                "platforms": cfg["platforms"],
-                "version": app["chan_upstream_version"],
             }
-            main_manifest.append(manifest_tags_with_version)
+            main_manifest.update(manifest_tags_with_version)
         except KeyError:
             manifest_tags = {
                 "tags": [app["chan_tag_rolling"]]
             }
-            main_manifest.append(manifest_tags)
+            main_manifest.update(manifest_tags)
         out["manifestsToBuild"].append(main_manifest)
 
     print(json.dumps(out))
