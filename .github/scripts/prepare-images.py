@@ -62,7 +62,7 @@ if __name__ == "__main__":
         if app["chan_stable"]:
             app["chan_image_name"] = name
             app["chan_tag_rolling"] = f"{name}:rolling"
-            if {app['chan_upstream_version']} == "":
+            if app['chan_upstream_version'] == "":
                 pass
             else:
                 app["chan_tag_version"] = f"{name}:{app['chan_upstream_version']}"
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         else:
             app["chan_image_name"] = f"{name}-{channel}"
             app["chan_tag_rolling"] = f"{name}-{channel}:rolling"
-            if {app['chan_upstream_version']} == "":
+            if app['chan_upstream_version'] == "":
                 pass
             else:
                 app["chan_tag_version"] = f"{name}-{channel}:{app['chan_upstream_version']}"
@@ -94,14 +94,25 @@ if __name__ == "__main__":
                 to_append["chan_tests_enabled"] = False
             out["imagePlatformPermutations"].append(to_append)
 
-        manifest = {
-            "image": app["chan_image_name"],
-            "app": name,
-            "channel": channel,
-            "tags": [app["chan_tag_rolling"], app["chan_tag_version"]],
-            "platforms": cfg["platforms"],
-            "version": app["chan_upstream_version"],
-        }
-        out["manifestsToBuild"].append(manifest)
+            main_manifest = {
+                "image": app["chan_image_name"],
+                "app": name,
+                "channel": channel,
+                "platforms": cfg["platforms"],
+                "version": app["chan_upstream_version"],
+            }
+        try:
+            manifest_tags_with_version = {
+                "tags": [app["chan_tag_rolling"], app["chan_tag_version"]],
+                "platforms": cfg["platforms"],
+                "version": app["chan_upstream_version"],
+            }
+            main_manifest.append(manifest_tags_with_version)
+        except KeyError:
+            manifest_tags = {
+                "tags": [app["chan_tag_rolling"]]
+            }
+            main_manifest.append(manifest_tags)
+        out["manifestsToBuild"].append(main_manifest)
 
     print(json.dumps(out))
