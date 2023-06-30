@@ -74,6 +74,9 @@ jobs:
       matrix:
         image: ["${{ fromJson(needs.prepare.outputs.matrices).imagePlatformPermutations }}"]
       fail-fast: false
+    permissions:
+      packages: write
+      contents: read
     steps:
       - name: Log Matrix Input
         run: |
@@ -181,6 +184,9 @@ jobs:
       matrix:
         manifest: ["${{ fromJSON(needs.prepare.outputs.matrices).manifestsToBuild }}"]
       fail-fast: false
+    permissions:
+      packages: write
+      contents: read
     steps:
       - name: Download Digests
         uses: actions/download-artifact@v3
