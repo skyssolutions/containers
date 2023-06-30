@@ -4,14 +4,19 @@ FROM debian:${DEBIAN_VERSION} as build
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update -y && apt-get install -y build-essential gcc-11 \
+RUN apt-get update -y && apt-get install -y  \
+        build-essential \
+        procps \
+        curl  \
+        file \
+        git \
         libcurl4-openssl-dev \
         liblzma-dev \
         libffi-dev \
         libssl-dev \
         python3-pip \
-        curl \
     && rm -rf /var/lib/apt/lists/*
+
 
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
@@ -20,13 +25,13 @@ ARG CHANNEL=5.0.18
 ENV MONGO_VERSION=$CHANNEL
 ENV PATH=$PATH:$HOME/.cargo/bin
 
-COPY ./apps/mongo-without-avx/get-source.sh /get-source.sh
+#COPY ./apps/mongo-without-avx/get-source.sh /get-source.sh
 
 RUN mkdir /src && ./get-source.sh
 
 WORKDIR /src
 
-COPY ./apps/mongo-without-avx/o3_patch.diff /o3_patch.diff
+#COPY ./apps/mongo-without-avx/o3_patch.diff /o3_patch.diff
 RUN patch -p1 < /o3_patch.diff
 
 ARG NUM_JOBS=
