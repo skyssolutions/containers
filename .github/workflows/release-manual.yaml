@@ -47,9 +47,8 @@ jobs:
             output="[]"
             IFS=',' read -a channels <<< "${{ inputs.channels }}"
             declare -a images_array=()
-            echo $channels
             for channel in "${channels[@]}"; do
-              image="$(jo app="$app" channel="$channel" debian_version="$debian_version")"
+              image="$(jo app="${{ inputs.app }}" channel="$channel")"
               images_array+=($image)
             done
 
