@@ -25,13 +25,13 @@ ARG CHANNEL=5.0.18
 ENV MONGO_VERSION=$CHANNEL
 ENV PATH=$PATH:$HOME/.cargo/bin
 
-#COPY ./apps/mongo-without-avx/get-source.sh /get-source.sh
+COPY ./apps/mongo-without-avx/get-source.sh /get-source.sh
 
 RUN mkdir /src && ./get-source.sh
 
 WORKDIR /src
 
-#COPY ./apps/mongo-without-avx/o3_patch.diff /o3_patch.diff
+COPY ./apps/mongo-without-avx/o3_patch.diff /o3_patch.diff
 RUN patch -p1 < /o3_patch.diff
 
 ARG NUM_JOBS=
