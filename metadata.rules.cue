@@ -17,4 +17,4 @@
 
 #NonEmptyString:           string & !=""
 #AcceptedPlatforms:        "linux/amd64" | "linux/arm64"
-#AcceptedDebianVersions:   "10" | "11" | "9"
+#AcceptedDebianVersions:    "9" | "10" | "11" | "12"
