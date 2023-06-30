@@ -70,8 +70,8 @@ if __name__ == "__main__":
             app["chan_tag_version"] = f"{name}-{channel}:{app['chan_upstream_version']}"
             app["chan_tag_testing"] = f"{name}-{channel}:testing"
         try:
-            if app["debian_version"]:
-                app["chan_debian_version"] = app["debian_version"]
+            if cfg["debian_version"]:
+                app["chan_debian_version"] = cfg["debian_version"]
         except KeyError:
             pass
 
