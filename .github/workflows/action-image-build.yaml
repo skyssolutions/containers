@@ -67,7 +67,7 @@ jobs:
 
   build-platform-images:
     name: Build/Test ${{ matrix.image.chan_image_name }} (${{ matrix.image.channel }}) - ${{ matrix.image.platform }}
-    runs-on: ${{ matrix.image.buildjet_builder }}
+    runs-on: ${{ matrix.image.builder }}
     needs:
       - prepare
     strategy:
