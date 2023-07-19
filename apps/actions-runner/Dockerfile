@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM debian:12
 
 ARG TARGETPLATFORM
 ARG RUNNER_VERSION=2.305.0
@@ -10,15 +10,12 @@ RUN test -n "$TARGETPLATFORM" || (echo "TARGETPLATFORM must be set" && false)
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update -y \
-    && apt-get install -y software-properties-common \
-    && add-apt-repository -y ppa:git-core/ppa \
     && apt-get update -y \
     && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
     ca-certificates \
     dnsutils \
-    ftp \
     git \
     git-lfs \
     iproute2 \
@@ -38,7 +35,6 @@ RUN apt update -y \
     rsync \
     shellcheck \
     supervisor \
-    software-properties-common \
     sudo \
     telnet \
     time \
@@ -49,8 +45,7 @@ RUN apt update -y \
     zip \
     zstd \
     moreutils \
-    jo \
-
+    docker-compose \
     && ln -sf /usr/bin/python3 /usr/bin/python \
     && ln -sf /usr/bin/pip3 /usr/bin/pip \
     && rm -rf /var/lib/apt/lists/*
@@ -128,7 +123,7 @@ VOLUME /var/lib/docker
 ENV HOME=/home/runner
 # Add the Python "User Script Directory" to the PATH
 ENV PATH="${PATH}:${HOME}/.local/bin"
-ENV ImageOS=ubuntu20
+ENV ImageOS=debian12
 
 RUN echo "PATH=${PATH}" > /etc/environment \
     && echo "ImageOS=${ImageOS}" >> /etc/environment
