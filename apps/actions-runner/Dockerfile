@@ -40,7 +40,6 @@ RUN apt update -y \
     time \
     tzdata \
     unzip \
-    upx \
     wget \
     zip \
     zstd \
