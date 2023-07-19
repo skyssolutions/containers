@@ -25,7 +25,7 @@ RUN apt update -y \
     jo \
     libunwind8 \
     locales \
-    netcat \
+    netcat-traditional \
     net-tools \
     openssh-client \
     parallel \
