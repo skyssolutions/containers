@@ -44,17 +44,10 @@ jobs:
           if [ "${{ inputs.app }}" = "ALL" ]; then
             ./.github/scripts/fetch.py all
           else
-            output="[]"
-            IFS=',' read -a channels <<< "${{ inputs.channels }}"
-            declare -a images_array=()
-            for channel in "${channels[@]}"; do
-              image="$(jo app="${{ inputs.app }}" channel="\"$channel\"")"
-              images_array+=($image)
-            done
-
-            output="$(jo -a ${images_array[*]})"
-            echo "changes=${output}" >> $GITHUB_OUTPUT
-            echo "Changes:\n ${output}"
+           output=$(python ./.github/scripts/determine_images.py "${{ inputs.app }}" "${{ inputs.channels }}")
+           echo $output
+           echo "changes=${output}" >> $GITHUB_OUTPUT
+           echo "Changes:\n ${output}"
           fi
 
   images-build:
