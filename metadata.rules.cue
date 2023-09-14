@@ -5,7 +5,7 @@
 }
 
 #Channels: {
-	name: #NonEmptyString
+	name: #StringOrFloat
 	platforms: [...#AcceptedPlatforms]
 	debian_version?: #AcceptedDebianVersions
 	stable: bool
@@ -15,6 +15,6 @@
 	}
 }
 
-#NonEmptyString:           string & !=""
+#StringOrFloat:           string | float & !=""
 #AcceptedPlatforms:        "linux/amd64" | "linux/arm64"
 #AcceptedDebianVersions:    "9" | "10" | "11" | "12"
