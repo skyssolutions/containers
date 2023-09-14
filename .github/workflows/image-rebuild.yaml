@@ -44,17 +44,7 @@ jobs:
         id: get-changed
         shell: bash
         run: |
-          declare -a changes_array=()
-          while read -r app
-          do
-            while read -r channel
-            do
-              change="$(jo app="$app" channel="$channel" debian_version="$debian_version")"
-              changes_array+=($change)
-            done < <(jq -r '.channels[] | .name' "./apps/$app/metadata.json")
-          done < <(echo '${{ needs.get-changes.outputs.addedOrModifiedImages }}' | jq --raw-output -c '.[]')
-
-          output="$(jo -a ${changes_array[*]})"
+          output="$(.github/scripts/determine_changes.py "${{ inputs.app }}" "${{ inputs.debian_version }")
           echo "changes=${output}" >> $GITHUB_OUTPUT
           echo "Changes:\n ${output}"
 
