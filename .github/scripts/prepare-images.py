@@ -20,7 +20,6 @@ def get_upstream_version(app, channel):
 
 
 if __name__ == "__main__":
-
     changed_apps = json.loads(sys.argv[1])
     forRelease = sys.argv[2] == "true"
 
@@ -38,14 +37,12 @@ if __name__ == "__main__":
             if str(ch["name"]) == channel:
                 cfg = ch
                 break
-
-        print(cfg)
+            else:
+                cfg = ch
+                break
 
         app["chan_build_date"] = datetime.now(timezone.utc).isoformat()
-        try:
-            app["chan_stable"] = cfg["stable"]
-        except Exception:
-            print(f"The 'stable' key is missing in the configuration for app: {name}, channel: {channel}. Current cfg: {cfg}")
+        app["chan_stable"] = cfg["stable"]
         app["chan_tests_enabled"] = cfg["tests"]["enabled"]
         app["chan_tests_type"] = cfg["tests"]["type"]
         app["chan_upstream_version"] = get_upstream_version(name, channel)
