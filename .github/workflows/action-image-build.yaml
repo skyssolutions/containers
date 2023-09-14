@@ -158,16 +158,16 @@ jobs:
         id: export-digest
         if: ${{ inputs.pushImages == 'true' }}
         run: |
-          mkdir -p /tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.platform }}/digests
+          mkdir -p /tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests
           digest="${{ steps.build.outputs.digest }}"
-          echo "${{ matrix.image.platform }}" > "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.platform }}/digests/${digest#sha256:}"
+          echo "${{ matrix.image.platform }}" > "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${digest#sha256:}"
 
       - name: Upload Digest
         if: ${{ inputs.pushImages == 'true' }}
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.image.chan_image_name }}-${{ matrix.image.platform }}
-          path: /tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.platform }}/*
+          name: ${{ matrix.image.chan_image_name }}-${{ matrix.image.channel }}
+          path: /tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/*
           if-no-files-found: error
           retention-days: 1
 
@@ -191,8 +191,8 @@ jobs:
       - name: Download Digests
         uses: actions/download-artifact@v3
         with:
-          name: ${{ matrix.manifest.image }}-${{ matrix.image.platform }}
-          path: /tmp/${{ matrix.manifest.image }}/${{ matrix.image.platform }}
+          name: ${{ matrix.manifest.image }}-${{ matrix.image.channel }}
+          path: /tmp/${{ matrix.manifest.image }}/${{ matrix.image.channel }}
 
       - name: Ensure all platforms were built
         id: ensure-platforms
@@ -201,11 +201,11 @@ jobs:
           ${{ toJSON(matrix.manifest.platforms) }}
           EOF
           )
-          ACTUAL_COUNT=$(ls -1 /tmp/${{ matrix.manifest.image }}/${{ matrix.image.platform }}/digests | wc -l)
+          ACTUAL_COUNT=$(ls -1 /tmp/${{ matrix.manifest.image }}/${{ matrix.image.channel }}/digests | wc -l)
           if [[ $EXPECTED_COUNT != $ACTUAL_COUNT ]]; then
               echo "Expected $EXPECTED_COUNT platforms, but only found $ACTUAL_COUNT"
               echo "Expected: ${{ toJSON(matrix.manifest.platforms) }}"
-              echo "Actual: $(cat /tmp/${{ matrix.manifest.image }}/${{ matrix.image.platform }}/digests/*)"
+              echo "Actual: $(cat /tmp/${{ matrix.manifest.image }}/${{ matrix.image.channel }}/digests/*)"
               exit 1
           fi
 
