@@ -30,3 +30,4 @@ if __name__ == '__main__':
     if error:
         print("Database connection failure: %s" % error, file=sys.stderr)
         sys.exit(1)
+
