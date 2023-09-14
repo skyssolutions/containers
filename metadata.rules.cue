@@ -16,6 +16,6 @@
 }
 
 #NonEmptyString:          string & != ""
-#StringOrFloat:           string & != "" | float
+#StringOrFloat:           string & != "" | float | int
 #AcceptedPlatforms:        "linux/amd64" | "linux/arm64"
 #AcceptedDebianVersions:    "9" | "10" | "11" | "12"
