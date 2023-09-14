@@ -48,7 +48,7 @@ jobs:
             IFS=',' read -a channels <<< "${{ inputs.channels }}"
             declare -a images_array=()
             for channel in "${channels[@]}"; do
-              image="$(jo app="${{ inputs.app }}" channel="$channel")"
+              image="$(jo app="${{ inputs.app }}" channel="\"$channel\"")"
               images_array+=($image)
             done
 
