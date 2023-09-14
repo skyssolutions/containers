@@ -12,7 +12,7 @@ def main(app, channels):
         channels_list = channels.split(',')
         images_array = [{"app": app, "channel": channel} for channel in channels_list]
 
-        output = json.dumps(images_array, indent=4)
+        output = json.dumps(images_array, indent=None)
 
         with open(os.getenv('GITHUB_ENV'), 'a') as f:
             f.write(f"changes={output}\n")
