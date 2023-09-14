@@ -15,7 +15,7 @@ def main(app, channels):
         output = json.dumps(images_array, indent=None)
 
         with open(os.getenv('GITHUB_ENV'), 'a') as f:
-            f.write(f"changes={output}\n")
+            f.write(f"imagesToBuild={output}\n")
 
         print(f"Changes:\n {output}")
 
