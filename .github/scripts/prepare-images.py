@@ -24,10 +24,17 @@ if __name__ == "__main__":
     forRelease = sys.argv[2] == "true"
 
     out = {"manifestsToBuild": [], "imagePlatformPermutations": []}
+    seen_combos = set()
 
     for app in changed_apps:
         name = app["app"]
         channel = str(app["channel"])
+
+        if(name, channel) in seen_combos:
+            continue
+
+        seen_combos.add((name, channel))
+
         with open(f"./apps/{name}/metadata.json") as f:
             metadata = json.load(f)
 
