@@ -66,7 +66,7 @@ jobs:
           echo "matrices=${matrices}" >> $GITHUB_OUTPUT
 
   build-platform-images:
-    name: Build/Test ${{ matrix.image.chan_image_name }} (${{ matrix.image.channel }})
+    name: Build/Test ${{ matrix.image.chan_image_name }} (${{ matrix.image.channel }}) - ${{ matrix.image.platform }}
     runs-on: "arc-sol-arm64"
     needs:
       - prepare
@@ -96,7 +96,7 @@ jobs:
           platforms: linux/amd64
           driver-opts: |
             namespace=ci
-            nodeselector="kubernetes.io/arch=amd64"
+            "nodeselector=kubernetes.io/arch=amd64"
 
       - name: Append ARM builder too
         run: |
