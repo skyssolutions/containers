@@ -39,6 +39,8 @@ if __name__ == "__main__":
                 cfg = ch
                 break
 
+        print(cfg)
+
         app["chan_build_date"] = datetime.now(timezone.utc).isoformat()
         try:
             app["chan_stable"] = cfg["stable"]
