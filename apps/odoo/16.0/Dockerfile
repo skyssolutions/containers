@@ -1,6 +1,8 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
+
+ARG WKHTMLTOX_VERSION=0.12.6.1-3
 
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
@@ -34,16 +36,15 @@ RUN apt-get update && \
         xz-utils \
         && \
         if [ "$(uname -m)" = "aarch64" ]; then \
-          curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_arm64.deb \
+          curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOX_VERSION}/wkhtmltox_${WKHTMLTOX_VERSION}.bookworm_arm64.deb \
         ; else \
-          curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/${WKHTMLTOX_VERSION}/wkhtmltox_${WKHTMLTOX_VERSION}-1.buster_amd64.deb \
-          && echo "${WKHTMLTOPDF_CHECKSUM} wkhtmltox.deb" | sha1sum -c - \
+          curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOX_VERSION}/wkhtmltox_${WKHTMLTOX_VERSION}.bookworm_amd64.deb \
     ; fi \
     && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
 # install latest postgresql-client
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
     && GNUPGHOME="$(mktemp -d)" \
     && export GNUPGHOME \
     && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
@@ -68,8 +69,10 @@ RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/od
     && rm -rf /var/lib/apt/lists/* odoo.deb
 
 # Copy entrypoint script and Odoo configuration file
-COPY ./apps/odoo/16.0/entrypoint.sh /
-COPY ./apps/odoo/16.0/odoo.conf /etc/odoo/
+#COPY ./apps/odoo/16.0/entrypoint.sh /
+#COPY ./apps/odoo/16.0/odoo.conf /etc/odoo/
+COPY ./entrypoint.sh /
+COPY ./odoo.conf /etc/odoo/
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
@@ -83,7 +86,8 @@ EXPOSE 8069 8071 8072
 # Set the default config file
 ENV ODOO_RC /etc/odoo/odoo.conf
 
-COPY ./apps/odoo/16.0/wait-for-psql.py /usr/local/bin/wait-for-psql.py
+#COPY ./apps/odoo/16.0/wait-for-psql.py /usr/local/bin/wait-for-psql.py
+COPY ./wait-for-psql.py /usr/local/bin/wait-for-psql.py
 
 # Set default user when running the container
 USER 568
