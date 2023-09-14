@@ -23,17 +23,17 @@ def main():
 
                     channel_list = []
                     for channel_info in channels:
-                        channel_name = channel_info.get('name')
+                        channel_name = str(channel_info.get('name'))
                         stable = channel_info.get('stable')
 
                         if FETCH_ALL:
                             channel_list.append(channel_name)
                         else:
                             published_version = subprocess.run(
-                                ["./.github/scripts/published.sh", app, channel_name, stable], text=True,
+                                ["./.github/scripts/published.sh", app, channel_name, str(stable)], text=True,
                                 capture_output=True).stdout.strip()
                             upstream_version = subprocess.run(
-                                ["./.github/scripts/upstream.sh", app, channel_name, stable], text=True,
+                                ["./.github/scripts/upstream.sh", app, channel_name, str(stable)], text=True,
                                 capture_output=True).stdout.strip()
 
                             if published_version != upstream_version and upstream_version not in ["", "null"]:
