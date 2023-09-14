@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import sys
-import os
 import json
 
 
@@ -12,7 +11,7 @@ def main(app, channels):
         channels_list = channels.split(',')
         images_array = [{"app": app, "channel": channel} for channel in channels_list]
 
-        json.dumps(images_array, indent=None)
+        print(json.dumps(images_array, indent=None))
 
 
 if __name__ == "__main__":
