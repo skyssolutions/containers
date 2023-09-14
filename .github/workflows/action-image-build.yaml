@@ -109,7 +109,7 @@ jobs:
             --node=${{ steps.builder.outputs.name }}-arm64 \
             --buildkitd-flags "--allow-insecure-entitlement security.insecure --allow-insecure-entitlement network.host" \
             --driver-opt namespace=ci \
-            '--driver-opt="nodeselector="kubernetes.io/arch=amd64"'
+            --driver-opt="nodeselector=kubernetes.io/arch=amd64"
 
       - name: Setup GHCR
         uses: docker/login-action@v3
