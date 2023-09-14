@@ -49,7 +49,7 @@ def main():
         for channel in channels:
             output.append({"app": app, "channel": channel})
 
-    output_json = json.dumps(output, indent=4)
+    output_json = json.dumps(output, indent=None)
 
     with open(os.getenv('GITHUB_OUTPUT'), 'a') as f:
         f.write(f"changes={output_json}")
