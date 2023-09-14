@@ -3,7 +3,7 @@
   "base": false,
   "channels": [
     {
-      "name": "16.0",
+      "name": 16.0,
       "platforms": [
         "linux/amd64",
         "linux/arm64"
