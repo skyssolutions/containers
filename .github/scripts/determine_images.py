@@ -12,12 +12,7 @@ def main(app, channels):
         channels_list = channels.split(',')
         images_array = [{"app": app, "channel": channel} for channel in channels_list]
 
-        output = json.dumps(images_array, indent=None)
-
-        with open(os.getenv('GITHUB_OUTPUT'), 'a') as f:
-            f.write(f"imagesToBuild={output}\n")
-
-        print(f"Changes:\n {output}")
+        json.dumps(images_array, indent=None)
 
 
 if __name__ == "__main__":
