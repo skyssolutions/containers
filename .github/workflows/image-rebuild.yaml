@@ -44,7 +44,7 @@ jobs:
         id: get-changed
         shell: bash
         run: |
-          output="$(.github/scripts/determine_changes.py "${{ inputs.app }}" "${{ inputs.debian_version }")
+          output="$(.github/scripts/determine_changes.py "${{ inputs.app }}" "${{ inputs.debian_version }}")
           echo "changes=${output}" >> $GITHUB_OUTPUT
           echo "Changes:\n ${output}"
 
