@@ -89,10 +89,11 @@ if __name__ == "__main__":
                 continue
             to_append = app.copy()
             to_append["platform"] = platform
-            if platform == "linux/amd64":
-                to_append["builder"] = "arc-sol"
-            elif platform == "linux/arm64":
-                to_append["builder"] = "arc-sol-arm64"
+            to_append["builder"] = "ubuntu-latest"
+            #if platform == "linux/amd64":
+            #    to_append["builder"] = "arc-sol"
+            #elif platform == "linux/arm64":
+            #    to_append["builder"] = "arc-sol-arm64"
             if platform != "linux/amd64":
                 to_append["chan_tests_enabled"] = False
             out["imagePlatformPermutations"].append(to_append)
