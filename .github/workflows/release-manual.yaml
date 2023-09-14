@@ -3,7 +3,7 @@ name: "Manual Release"
 
 concurrency:
   group: container-release
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 on:
   workflow_dispatch:
