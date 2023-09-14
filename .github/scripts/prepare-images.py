@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#!/usr/bin/env python3
 
 import sys
 
@@ -17,6 +17,7 @@ def get_upstream_version(app, channel):
     args = [latest_script, channel]
     output = subprocess.check_output(args)
     return output.decode("utf-8").strip()
+
 
 if __name__ == "__main__":
 
@@ -48,9 +49,9 @@ if __name__ == "__main__":
             app["chan_goss_args"] = "tail -f /dev/null"
 
         if app.get("base", False):
-            app["chan_label_type"] ="org.opencontainers.image.base"
+            app["chan_label_type"] = "org.opencontainers.image.base"
         else:
-            app["chan_label_type"]="org.opencontainers.image"
+            app["chan_label_type"] = "org.opencontainers.image"
 
         if isfile(f"./apps/{name}/{channel}/Dockerfile"):
             app["chan_dockerfile"] = f"./apps/{name}/{channel}/Dockerfile"
@@ -76,7 +77,7 @@ if __name__ == "__main__":
                 app["chan_tag_version"] = f"{name}-{channel}:{app['chan_upstream_version']}"
             app["chan_tag_testing"] = f"{name}-{channel}:testing"
         try:
-            if cfg["debian_version"]:
+            if cfg["debian_version"] != "null":
                 app["chan_debian_version"] = cfg["debian_version"]
         except KeyError:
             pass
