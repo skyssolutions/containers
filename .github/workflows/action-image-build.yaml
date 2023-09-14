@@ -132,8 +132,8 @@ jobs:
           platforms: ${{ matrix.image.platform }}
           file: ${{ matrix.image.chan_dockerfile }}
           outputs: ${{ steps.prepare-build-outputs.outputs.outputs }}
-          cache-from: type=registry,ref=samip5/${{ matrix.image.chan_image_name }}:latest
-          cache-to: type=inline
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Run Goss Tests
         id: dgoss
