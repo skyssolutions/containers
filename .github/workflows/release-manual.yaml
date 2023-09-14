@@ -44,10 +44,7 @@ jobs:
           if [ "${{ inputs.app }}" = "ALL" ]; then
             ./.github/scripts/fetch.py all
           else
-           output=$(python ./.github/scripts/determine_images.py "${{ inputs.app }}" "${{ inputs.channels }}")
-           echo $output
-           echo "changes=${output}" >> $GITHUB_OUTPUT
-           echo "Changes:\n ${output}"
+           ./.github/scripts/determine_images.py "${{ inputs.app }}" "${{ inputs.channels }}")
           fi
 
   images-build:

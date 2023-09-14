@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+import os
 import json
 
 
@@ -13,8 +14,10 @@ def main(app, channels):
 
         output = json.dumps(images_array, indent=4)
 
-        # Outputting the echo command to set the GITHUB_OUTPUT environment variable
-        print(f"::set-output name=output::{output}")
+        with open(os.getenv('GITHUB_ENV'), 'a') as f:
+            f.write(f"changes={output}\n")
+
+        print(f"Changes:\n {output}")
 
 
 if __name__ == "__main__":
