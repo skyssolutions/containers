@@ -2,7 +2,7 @@
 name: "Scheduled Release"
 
 concurrency:
-  group: container-release
+  group: container-release-schedule
   cancel-in-progress: false
 
 on:
