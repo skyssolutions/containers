@@ -35,7 +35,7 @@ jobs:
 
       - name: Fetch new app versions
         id: fetch
-        run: ./.github/scripts/fetch.sh
+        run: ./.github/scripts/fetch.py
         env:
           TOKEN: "${{ steps.generate-token.outputs.token }}"
 

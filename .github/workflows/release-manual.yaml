@@ -42,7 +42,7 @@ jobs:
         shell: bash
         run: |
           if [ "${{ inputs.app }}" = "ALL" ]; then
-            ./.github/scripts/fetch.sh all
+            ./.github/scripts/fetch.py all
           else
             output="[]"
             IFS=',' read -a channels <<< "${{ inputs.channels }}"
