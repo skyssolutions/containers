@@ -49,7 +49,7 @@ jobs:
           do
             while read -r channel
             do
-              change="$(python3 -c \"import json; print(json.dumps({'app': '$app', 'channel': '$channel', 'debian_version': '$debian_version'}, separators=(',', ':')))\")"
+              change="$(./github/scripts/generate_modified_json.py $app $channel $debian_version)
               changes_array+=($change)
             done < <(jq -r '.channels[] | .name' "./apps/$app/metadata.json")
           done < <(echo '${{ needs.get-changes.outputs.addedOrModifiedImages }}' | jq --raw-output -c '.[]')
