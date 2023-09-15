@@ -35,6 +35,7 @@ RUN apt-get update && \
         python3-xlwt \
         xz-utils \
         && \
+        pip3 install reportlab --upgrade && \
         if [ "$(uname -m)" = "aarch64" ]; then \
           curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOX_VERSION}/wkhtmltox_${WKHTMLTOX_VERSION}.bookworm_arm64.deb \
         ; else \
