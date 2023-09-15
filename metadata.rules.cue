@@ -1,5 +1,6 @@
 #Spec: {
 	app:  #NonEmptyString
+	build_disabled?: bool
 	base: bool
 	channels: [...#Channels]
 }

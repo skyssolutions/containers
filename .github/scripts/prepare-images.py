@@ -35,6 +35,11 @@ if __name__ == "__main__":
     for app in changed_apps:
         name = app["app"]
         channel = str(app["channel"])
+        try:
+            if app['build_disabled']:
+                continue
+        except IndexError:
+            pass
 
         with open(f"./apps/{name}/metadata.json") as f:
             metadata = json.load(f)

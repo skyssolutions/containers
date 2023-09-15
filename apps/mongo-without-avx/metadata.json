@@ -1,5 +1,6 @@
 {
   "app": "mongo-without-avx",
+  "build_disabled": true,
   "base": false,
   "channels": [
     {
