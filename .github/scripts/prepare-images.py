@@ -42,7 +42,7 @@ if __name__ == "__main__":
         try:
             if metadata['build_disabled']:
                 continue
-        except IndexError:
+        except KeyError:
             pass
 
         # Generate Config

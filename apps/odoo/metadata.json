@@ -1,6 +1,7 @@
 {
   "app": "odoo",
   "base": false,
+
   "channels": [
     {
       "name": 16.0,
