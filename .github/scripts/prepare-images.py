@@ -10,11 +10,18 @@ from os.path import isfile
 
 
 def get_upstream_version(app, channel):
+    use_channel_script = False
     latest_script = f"./apps/{app}/ci/latest.sh"
-    if not isfile(latest_script):
+    latest_channel_script = f"./apps/{app}/{channel}/ci/latest.sh"
+    if not isfile(latest_script) and not isfile(latest_channel_script):
         return ""
+    elif isfile(latest_channel_script):
+        use_channel_script = True
 
-    args = [latest_script, channel]
+    if use_channel_script:
+        args = [latest_channel_script, channel]
+    else:
+        args = [latest_script, channel]
     output = subprocess.check_output(args)
     return output.decode("utf-8").strip()
 
@@ -24,16 +31,10 @@ if __name__ == "__main__":
     forRelease = sys.argv[2] == "true"
 
     out = {"manifestsToBuild": [], "imagePlatformPermutations": []}
-    seen_combos = set()
 
     for app in changed_apps:
         name = app["app"]
         channel = str(app["channel"])
-
-        if(name, channel) in seen_combos:
-            continue
-
-        seen_combos.add((name, channel))
 
         with open(f"./apps/{name}/metadata.json") as f:
             metadata = json.load(f)
