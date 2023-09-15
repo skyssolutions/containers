@@ -34,7 +34,7 @@ on:
 jobs:
   prepare:
     name: Prepare Matrices
-    runs-on: ubuntu-latest
+    runs-on: buildjet-2vcpu-ubuntu-2204
     outputs:
       matrices: ${{ steps.generate-matrices.outputs.matrices }}
     if: ${{ inputs.imagesToBuild != '' && inputs.imagesToBuild != '[]' }}
@@ -174,7 +174,7 @@ jobs:
 
   merge:
     name: Merge ${{ matrix.manifest.image }}
-    runs-on: ubuntu-latest
+    runs-on: buildjet-2vcpu-ubuntu-2204
     needs:
       - prepare
       - build-platform-images
@@ -221,7 +221,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Log Files
-        working-directory: /tmp/${{ matrix.manifest.image }}/digests
+        working-directory: /tmp/${{ matrix.manifest.image }}/${{ matrix.manifest.channel }}/digests
         run: |
           ls -la
           cat *
@@ -229,7 +229,7 @@ jobs:
       # https://docs.docker.com/build/ci/github-actions/multi-platform/#distribute-build-across-multiple-runners
       - name: Merge Manifests
         id: merge
-        working-directory: /tmp/${{ matrix.manifest.image }}/${{ matrix.image.platform }}/digests
+        working-directory: /tmp/${{ matrix.manifest.image }}/${{ matrix.manifest.channel }}/digests
         env:
           TAGS: ${{ toJSON(matrix.manifest.tags) }}
         run: |
