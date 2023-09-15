@@ -192,8 +192,8 @@ jobs:
       - name: Download Digests
         uses: actions/download-artifact@v3
         with:
-          name: ${{ matrix.manifest.image }}-${{ matrix.image.channel }}
-          path: /tmp/${{ matrix.manifest.image }}/${{ matrix.image.channel }}
+          name: ${{ matrix.manifest.image }}-${{ matrix.manifest.channel }}
+          path: /tmp/${{ matrix.manifest.image }}/${{ matrix.manifest.channel }}
 
       - name: Ensure all platforms were built
         id: ensure-platforms
@@ -202,11 +202,11 @@ jobs:
           ${{ toJSON(matrix.manifest.platforms) }}
           EOF
           )
-          ACTUAL_COUNT=$(ls -1 /tmp/${{ matrix.manifest.image }}/${{ matrix.image.channel }}/digests | wc -l)
+          ACTUAL_COUNT=$(ls -1 /tmp/${{ matrix.manifest.image }}/${{ matrix.manifest.channel }}/digests | wc -l)
           if [[ $EXPECTED_COUNT != $ACTUAL_COUNT ]]; then
               echo "Expected $EXPECTED_COUNT platforms, but only found $ACTUAL_COUNT"
               echo "Expected: ${{ toJSON(matrix.manifest.platforms) }}"
-              echo "Actual: $(cat /tmp/${{ matrix.manifest.image }}/${{ matrix.image.channel }}/digests/*)"
+              echo "Actual: $(cat /tmp/${{ matrix.manifest.image }}/${{ matrix.manifest.channel }}/digests/*)"
               exit 1
           fi
 
