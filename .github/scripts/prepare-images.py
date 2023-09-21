@@ -56,7 +56,7 @@ if __name__ == "__main__":
                 break
 
         app["chan_build_date"] = datetime.now(timezone.utc).isoformat()
-        app["chan_stable"] = cfg["stable"]
+        cfg["stable"] = app["chan_stable"]
         app["chan_tests_enabled"] = cfg["tests"]["enabled"]
         app["chan_tests_type"] = cfg["tests"]["type"]
         app["chan_upstream_version"] = get_upstream_version(name, channel)
