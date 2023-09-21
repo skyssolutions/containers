@@ -49,6 +49,12 @@ RUN apt-get update && \
     && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
+# Install fonts
+RUN mkdir -p /usr/lib/python3/dist-packages/reportlab/fonts && \
+    curl -o pfbfer.zip -sL http://www.reportlab.com/ftp/fonts/pfbfer.zip && \
+    unzip pfbfer.zip -d /usr/lib/python3/dist-packages/reportlab/fonts && \
+    rm pfbfer.zip
+
 # install latest postgresql-client
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
     && GNUPGHOME="$(mktemp -d)" \
