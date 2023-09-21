@@ -4,6 +4,8 @@ SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
+# Install some deps
+RUN dnf -y install wkhtmltopdf
 
 # Install Odoo
 ENV ODOO_VERSION 16.0
