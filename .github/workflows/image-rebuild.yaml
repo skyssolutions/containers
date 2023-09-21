@@ -49,7 +49,11 @@ jobs:
           do
             while read -r channel
             do
-              change="$(./.github/scripts/generate_modified_json.py $app $channel $debian_version)"
+              if [ -z "$debian_version" ]; then
+                change="$(./.github/scripts/generate_modified_json.py $app $channel)"
+              else
+                change="$(./.github/scripts/generate_modified_json.py $app $channel $debian_version)"
+              fi
               changes_array+=($change)
             done < <(jq -r '.channels[] | .name' "./apps/$app/metadata.json")
           done < <(echo '${{ needs.get-changes.outputs.addedOrModifiedImages }}' | jq --raw-output -c '.[]')
