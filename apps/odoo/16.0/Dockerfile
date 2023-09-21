@@ -36,8 +36,9 @@ RUN apt-get update && \
         python3-xlwt \
         xz-utils \
         unzip \
+        libcairo2 \
         && \
-        pip3 install reportlab --upgrade --break-system-packages && \
+        pip3 install cairocffi --upgrade --break-system-packages && pip3 install reportlab --upgrade --break-system-packages && \
         if [ "$(uname -m)" = "aarch64" ]; then \
           curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOX_VERSION}/wkhtmltox_${WKHTMLTOX_VERSION}.bookworm_arm64.deb \
         ; else \
