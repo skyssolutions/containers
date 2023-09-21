@@ -49,7 +49,7 @@ jobs:
           do
             while read -r channel
             do
-              if [ -z "$debian_version" ]; then
+              if [ -z "$debian_version" ] || [ "$debian_version" == "null" ]; then
                 change="$(./.github/scripts/generate_modified_json.py $app $channel)"
               else
                 change="$(./.github/scripts/generate_modified_json.py $app $channel $debian_version)"
