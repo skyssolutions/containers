@@ -1,4 +1,4 @@
-FROM fedora:36
+FROM fedora:40
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
