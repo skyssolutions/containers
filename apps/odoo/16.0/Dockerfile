@@ -37,8 +37,10 @@ RUN apt-get update && \
         xz-utils \
         unzip \
         libcairo2 \
+        python3-cairocffi \
+        python3-reportlab \
         && \
-        pip3 install cairocffi --upgrade --break-system-packages && pip3 install reportlab --upgrade --break-system-packages && \
+        #pip3 install cairocffi --upgrade && pip3 install reportlab --upgrade && \
         if [ "$(uname -m)" = "aarch64" ]; then \
           curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOX_VERSION}/wkhtmltox_${WKHTMLTOX_VERSION}.bookworm_arm64.deb \
         ; else \
@@ -75,6 +77,8 @@ RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/od
 # Copy entrypoint script and Odoo configuration file
 COPY ./apps/odoo/16.0/entrypoint.sh /
 COPY ./apps/odoo/16.0/odoo.conf /etc/odoo/
+#COPY entrypoint.sh /
+#COPY odoo.conf /etc/odoo/
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
@@ -89,6 +93,7 @@ EXPOSE 8069 8071 8072
 ENV ODOO_RC /etc/odoo/odoo.conf
 
 COPY ./apps/odoo/16.0/wait-for-psql.py /usr/local/bin/wait-for-psql.py
+#COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 
 # Set default user when running the container
 USER 568
