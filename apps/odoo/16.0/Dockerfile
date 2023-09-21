@@ -35,6 +35,7 @@ RUN apt-get update && \
         python3-xlrd \
         python3-xlwt \
         xz-utils \
+        unzip \
         && \
         pip3 install reportlab --upgrade --break-system-packages && \
         if [ "$(uname -m)" = "aarch64" ]; then \
