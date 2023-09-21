@@ -1,15 +1,15 @@
-FROM debian:bookworm-slim
+FROM debian:bullseye-slim
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
-ARG WKHTMLTOX_VERSION=0.12.6.1-3
-
+ARG WKHTMLTOX_VERSION_ARM=0.12.6.1-3
+ARG WKHTMLTOX_VERSION=0.12.5
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
         ca-certificates \
         curl \
         dirmngr \
@@ -42,9 +42,9 @@ RUN apt-get update && \
         && \
         #pip3 install cairocffi --upgrade && pip3 install reportlab --upgrade && \
         if [ "$(uname -m)" = "aarch64" ]; then \
-          curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOX_VERSION}/wkhtmltox_${WKHTMLTOX_VERSION}.bookworm_arm64.deb \
+          curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOX_VERSION_ARM}/wkhtmltox_${WKHTMLTOX_VERSION_ARM}.bookworm_arm64.deb \
         ; else \
-          curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOX_VERSION}/wkhtmltox_${WKHTMLTOX_VERSION}.bookworm_amd64.deb \
+          curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOX_VERSION}/wkhtmltox_${WKHTMLTOX_VERSION}-1.buster_amd64.deb \
     ; fi \
     && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
