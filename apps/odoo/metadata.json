@@ -4,6 +4,7 @@
   "channels": [
     {
       "name": 16.0,
+      "build_disabled": true,
       "platforms": [
         "linux/amd64",
         "linux/arm64"
