@@ -102,8 +102,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: registry.samipsolutions.fi
-          username: ${{ HARBOR_USER }}
-          password: ${{ HARBOR_PASSWORD }}
+          username: ${{ secrets.HARBOR_USER }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
 
       - name: Setup Tools
         shell: bash
@@ -235,8 +235,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: registry.samipsolutions.fi
-          username: ${{ HARBOR_USER }}
-          password: ${{ HARBOR_PASSWORD }}
+          username: ${{ secrets.HARBOR_USER }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
 
       - name: Log Files
         working-directory: /tmp/${{ matrix.manifest.image }}/${{ matrix.manifest.channel }}/digests
