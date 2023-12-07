@@ -132,7 +132,9 @@ jobs:
               outputs="$(cat tmp_output2.txt)"
           fi
           echo "image_name=${image_name}" >> $GITHUB_OUTPUT
-          echo "outputs=${outputs}" >> $GITHUB_OUTPUT
+          echo "OUTPUTS<<EOF" >> $GITHUB_ENV
+          cat tmp_output.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
           echo "Outputs to be written to GITHUB_OUTPUT:"
           echo "image_name=${image_name}"
           echo "${outputs}"
@@ -151,7 +153,7 @@ jobs:
           context: .
           platforms: ${{ matrix.image.platform }}
           file: ${{ matrix.image.chan_dockerfile }}
-          outputs: $(cat tmp_output.txt)
+          outputs: ${{ env.OUTPUTS }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
