@@ -121,11 +121,15 @@ jobs:
           if [[ ${{ inputs.pushImages }} == 'true' ]]; then
               image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_image_name }}"
               image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_image_name }}"
-              echo "::set-output name=outputs::type=image,name=${image_name},push=true"$'\n'"type=image,name=${image_name_custom},push=true"
+              echo "type=image,name=${image_name},push-by-digest=true,name-canonical=true,push=true" > tmp_output.txt
+              echo "type=image,name=${image_name_custom},push-by-digest=true,name-canonical=true,push=true" >> tmp_output.txt
+              outputs="$(cat tmp_output.txt)"
           else
               image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_tag_testing }}"
               image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_tag_testing }}"
-              echo "::set-output name=outputs::type=docker,name=${image_name},push=false"$'\n'"type=docker,name=${image_name_custom},push=false"
+              echo "type=docker,name=${image_name},push=false" > tmp_output2.txt
+              echo "type=docker,name=${image_name_custom},push=false" >> tmp_output2.txt
+              outputs="$(cat tmp_output2.txt)"
           fi
           echo "image_name=${image_name}" >> $GITHUB_OUTPUT
           echo "outputs=${outputs}" >> $GITHUB_OUTPUT
