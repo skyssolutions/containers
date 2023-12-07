@@ -136,6 +136,7 @@ jobs:
           echo "Outputs to be written to GITHUB_OUTPUT:"
           echo "image_name=${image_name}"
           echo "${outputs}"
+          env
 
       - name: Build Image
         uses: docker/build-push-action@v5
