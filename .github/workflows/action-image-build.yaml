@@ -122,12 +122,12 @@ jobs:
               image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_image_name }}"
               image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_image_name }}"
               outputs="type=image,name=${image_name},push-by-digest=true,name-canonical=true,push=true"
-              outputs="type=image,name=${image_name_custom},push-by-digest=true,name-canonical=true,push=true"
+              outputs+="type=image,name=${image_name_custom},push-by-digest=true,name-canonical=true,push=true"
           else
               image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_tag_testing }}"
               image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_tag_testing }}"
               outputs="type=docker,name=${image_name},push=false"
-              outputs="type=docker,name=${image_name_custom},push=false"
+              outputs+="type=docker,name=${image_name_custom},push=false"
           fi
           echo "image_name=${image_name}" >> $GITHUB_OUTPUT
           echo "outputs=${outputs}" >> $GITHUB_OUTPUT
