@@ -42,7 +42,9 @@ jobs:
         shell: bash
         run: |
           if [ "${{ inputs.app }}" = "ALL" ]; then
-            ./.github/scripts/fetch.py all
+            output=$(./.github/scripts/fetch.py all)
+            echo "changes=${output}" >> $GITHUB_OUTPUT
+            echo "Changes:\n ${output}"
           else
            output=$(.github/scripts/determine_images.py "${{ inputs.app }}" "${{ inputs.channels }}")
            echo "changes=${output}" >> $GITHUB_OUTPUT
