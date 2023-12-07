@@ -132,15 +132,13 @@ jobs:
               outputs="$(cat tmp_output2.txt)"
           fi
           echo "image_name=${image_name}" >> $GITHUB_OUTPUT
-          echo "OUTPUTS<<EOF" >> $GITHUB_ENV
-          cat tmp_output.txt >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          echo "outputs=${outputs}" >> $GITHUB_OUTPUT
           echo "Outputs to be written to GITHUB_OUTPUT:"
           echo "image_name=${image_name}"
           echo "${outputs}"
-
-      - name: Create dir for Docker images
-        run: mkdir -p /tmp/docker-images
+      - name: Debug
+        run: |
+          ls
 
       - name: Build Image
         uses: docker/build-push-action@v5
@@ -153,7 +151,7 @@ jobs:
           context: .
           platforms: ${{ matrix.image.platform }}
           file: ${{ matrix.image.chan_dockerfile }}
-          outputs: type=docker,dest=/tmp/docker-images/${{ matrix.image.chan_image_name }}.tar
+          outputs: ${{ steps.prepare-build-outputs.outputs.outputs }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -183,23 +181,6 @@ jobs:
           mkdir -p /tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests
           digest="${{ steps.build.outputs.digest }}"
           echo "${{ matrix.image.platform }}" > "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${digest#sha256:}"
-
-      - name: Push Image to GHCR
-        if: ${{ inputs.pushImages == 'true' }}
-        run: |
-          digest=$(cat "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${{ steps.build.outputs.digest }}")
-          image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_image_name }}@${digest}"
-          docker load -i /tmp/docker-images/${{ matrix.image.chan_image_name }}.tar
-          docker tag $digest $image_name
-          docker push $image_name
-
-      - name: Push Image to Custom Registry
-        if: ${{ inputs.pushImages == 'true' }}
-        run: |
-          digest=$(cat "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${{ steps.build.outputs.digest }}")
-          image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_image_name }}@${digest}"
-          docker tag $digest $image_name_custom
-          docker push $image_name_custom
 
       - name: Upload Digest
         if: ${{ inputs.pushImages == 'true' }}
