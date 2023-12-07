@@ -9,7 +9,8 @@ RUN dnf -y install wkhtmltopdf
 
 # Install Odoo
 ENV ODOO_VERSION 16.0
-ARG ODOO_RELEASE=20230921
+# renovate: datasource=docker depName=odoo
+ARG ODOO_RELEASE=20231207
 RUN curl -o odoo.rpm -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/rpm/odoo_${ODOO_VERSION}.${ODOO_RELEASE}.rpm \
     && dnf localinstall odoo.rpm -y
 

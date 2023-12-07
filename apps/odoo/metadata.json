@@ -3,18 +3,6 @@
   "base": false,
   "channels": [
     {
-      "name": 16.0,
-      "platforms": [
-        "linux/amd64",
-        "linux/arm64"
-      ],
-      "stable": true,
-      "tests": {
-        "enabled": false,
-        "type": "web"
-      }
-    },
-    {
       "name": "16-fedora",
       "platforms": [
         "linux/amd64",
