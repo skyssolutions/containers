@@ -139,6 +139,9 @@ jobs:
           echo "image_name=${image_name}"
           echo "${outputs}"
 
+      - name: Create dir for Docker images
+        run: mkdir -p /tmp/docker-images
+
       - name: Build Image
         uses: docker/build-push-action@v5
         id: build
@@ -151,7 +154,6 @@ jobs:
           platforms: ${{ matrix.image.platform }}
           file: ${{ matrix.image.chan_dockerfile }}
           outputs: type=docker,dest=/tmp/docker-images/${{ matrix.image.chan_image_name }}.tar
-          load: true # Load image into Docker runtime
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
