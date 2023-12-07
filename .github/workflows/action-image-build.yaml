@@ -187,7 +187,7 @@ jobs:
       - name: Push Image to GHCR
         if: ${{ inputs.pushImages == 'true' }}
         run: |
-          digest=$(cat "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests")
+          digest=$(cat "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${{ steps.build.outputs.digest }}")
           image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_image_name }}@${digest}"
           docker load -i /tmp/docker-images/${{ matrix.image.chan_image_name }}.tar
           docker tag $digest $image_name
@@ -196,7 +196,7 @@ jobs:
       - name: Push Image to Custom Registry
         if: ${{ inputs.pushImages == 'true' }}
         run: |
-          digest=$(cat "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests")
+          digest=$(cat "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${{ steps.build.outputs.digest }}")
           image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_image_name }}@${digest}"
           docker tag $digest $image_name_custom
           docker push $image_name_custom
