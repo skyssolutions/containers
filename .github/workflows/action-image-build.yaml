@@ -136,7 +136,9 @@ jobs:
           echo "Outputs to be written to GITHUB_OUTPUT:"
           echo "image_name=${image_name}"
           echo "${outputs}"
-          env
+      - name: Debug
+        run: |
+          ls
 
       - name: Build Image
         uses: docker/build-push-action@v5
@@ -149,7 +151,7 @@ jobs:
           context: .
           platforms: ${{ matrix.image.platform }}
           file: ${{ matrix.image.chan_dockerfile }}
-          outputs: ${{ steps.prepare-build-outputs.outputs.outputs }}
+          outputs: $(cat tmp_output.txt)
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
