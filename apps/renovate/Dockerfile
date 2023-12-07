@@ -11,7 +11,7 @@ RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg -
 RUN npm install -g renovate@${RENOVATE_VERSION}
 
 RUN mkdir -p /etc/my_init.d && mkdir -p /etc/custom
-COPY setup_cron.sh /etc/my_init.d/setup_cron.sh
-COPY run_renovate.sh /etc/custom/run_renovate.sh
+COPY ./apps/renovate/setup_cron.sh /etc/my_init.d/setup_cron.sh
+COPY ./apps/renovate/run_renovate.sh /etc/custom/run_renovate.sh
 
 CMD ["/sbin/my_init"]
