@@ -121,26 +121,23 @@ jobs:
           if [[ ${{ inputs.pushImages }} == 'true' ]]; then
               image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_image_name }}"
               image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_image_name }}"
-              echo "type=image,name=${image_name},push-by-digest=true,name-canonical=true,push=true" > tmp_output.txt
-              echo "type=image,name=${image_name_custom},push-by-digest=true,name-canonical=true,push=true" >> tmp_output.txt
-              outputs="$(cat tmp_output.txt)"
+              echo "output_ghcr=type=image,name=${image_name},push-by-digest=true,name-canonical=true,push=true" >> $GITHUB_OUTPUT
+              echo "output_harbor=type=image,name=${image_name_custom},push-by-digest=true,name-canonical=true,push=true" >> $GITHUB_OUTPUT
           else
               image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_tag_testing }}"
               image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_tag_testing }}"
-              echo "type=docker,name=${image_name},push=false" > tmp_output2.txt
-              echo "type=docker,name=${image_name_custom},push=false" >> tmp_output2.txt
-              outputs="$(cat tmp_output2.txt)"
+              echo "output_ghcr=type=docker,name=${image_name},push=false" >> $GITHUB_OUTPUT
+              echo "output_harbor=type=docker,name=${image_name_custom},push=false" >> $GITHUB_OUTPUT
           fi
           echo "image_name=${image_name}" >> $GITHUB_OUTPUT
-          echo "outputs=${outputs}" >> $GITHUB_OUTPUT
+          echo "output_ghcr=${output_ghcr}" >> $GITHUB_OUTPUT
+          echo "output_harbor=${output_harbor}" >> $GITHUB_OUTPUT
           echo "Outputs to be written to GITHUB_OUTPUT:"
           echo "image_name=${image_name}"
-          echo "${outputs}"
-      - name: Debug
-        run: |
-          ls
+          echo "${output_ghcr}"
+          echo "${output_harbor}"
 
-      - name: Build Image
+      - name: Build Image (ghcr)
         uses: docker/build-push-action@v5
         id: build
         with:
@@ -151,7 +148,22 @@ jobs:
           context: .
           platforms: ${{ matrix.image.platform }}
           file: ${{ matrix.image.chan_dockerfile }}
-          outputs: ${{ steps.prepare-build-outputs.outputs.outputs }}
+          outputs: ${{ steps.prepare-build-outputs.outputs.output_ghcr }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build Image (Harbor)
+        uses: docker/build-push-action@v5
+        id: build2
+        with:
+          build-args: |-
+            VERSION=${{ matrix.image.chan_upstream_version }}
+            DEBIAN_VERSION=${{ matrix.image.chan_debian_version }}
+            CHANNEL=${{ matrix.image.channel }}
+          context: .
+          platforms: ${{ matrix.image.platform }}
+          file: ${{ matrix.image.chan_dockerfile }}
+          outputs: ${{ steps.prepare-build-outputs.outputs.output_harbor }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -179,8 +191,10 @@ jobs:
         if: ${{ inputs.pushImages == 'true' }}
         run: |
           mkdir -p /tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests
-          digest="${{ steps.build.outputs.digest }}"
-          echo "${{ matrix.image.platform }}" > "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${digest#sha256:}"
+          digest_ghcr="${{ steps.build.outputs.digest }}"
+          digest_harbor="${{ steps.build2.outputs.digest }
+          echo "${{ matrix.image.platform }}" > "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${digest_ghcr#sha256:}"
+          echo "${{ matrix.image.platform }}" > "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${digest_harbor#sha256:}"
 
       - name: Upload Digest
         if: ${{ inputs.pushImages == 'true' }}
