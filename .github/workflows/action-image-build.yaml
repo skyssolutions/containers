@@ -131,6 +131,7 @@ jobs:
           fi
           echo "image_name=${image_name}" >> $GITHUB_OUTPUT
           echo "outputs=${outputs}" >> $GITHUB_OUTPUT
+          echo $GITHUB_OUTPUT
 
       - name: Build Image
         uses: docker/build-push-action@v5
