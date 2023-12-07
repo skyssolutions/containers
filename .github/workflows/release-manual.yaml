@@ -14,8 +14,8 @@ on:
         required: true
       channels:
         description: "Channels (ex: master,develop)"
-        default: ""
-        required: false
+        default: "latest"
+        required: true
       push:
         description: "Push"
         default: "false"
