@@ -192,7 +192,7 @@ jobs:
         run: |
           mkdir -p /tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests
           digest_ghcr="${{ steps.build.outputs.digest }}"
-          digest_harbor="${{ steps.build2.outputs.digest }
+          digest_harbor="${{ steps.build2.outputs.digest }}"
           echo "${{ matrix.image.platform }}" > "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${digest_ghcr#sha256:}"
           echo "${{ matrix.image.platform }}" > "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${digest_harbor#sha256:}"
 
