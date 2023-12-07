@@ -121,13 +121,17 @@ jobs:
           if [[ ${{ inputs.pushImages }} == 'true' ]]; then
               image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_image_name }}"
               image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_image_name }}"
-              echo "output_ghcr=type=image,name=${image_name},push-by-digest=true,name-canonical=true,push=true" >> $GITHUB_OUTPUT
-              echo "output_harbor=type=image,name=${image_name_custom},push-by-digest=true,name-canonical=true,push=true" >> $GITHUB_OUTPUT
+              output_ghcr=type=image,name=${image_name},push-by-digest=true,name-canonical=true,push=true"
+              output_harbor=type=image,name=${image_name_custom},push-by-digest=true,name-canonical=true,push=true"
+              echo "output_ghcr=${output_harbor}" >> $GITHUB_OUTPUT
+              echo "output_harbor=${output_harbor}" >> $GITHUB_OUTPUT
           else
               image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_tag_testing }}"
               image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_tag_testing }}"
-              echo "output_ghcr=type=docker,name=${image_name},push=false" >> $GITHUB_OUTPUT
-              echo "output_harbor=type=docker,name=${image_name_custom},push=false" >> $GITHUB_OUTPUT
+              output_ghcr="type=docker,name=${image_name},push=false"
+              output_harbor="type=docker,name=${image_name_custom},push=false"
+              echo "output_ghcr=${output_harbor}" >> $GITHUB_OUTPUT
+              echo "output_harbor=${output_harbor}" >> $GITHUB_OUTPUT
           fi
           echo "image_name=${image_name}" >> $GITHUB_OUTPUT
           echo "output_ghcr=${output_ghcr}" >> $GITHUB_OUTPUT
