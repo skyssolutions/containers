@@ -1,8 +1,0 @@
----
-file:
-  /usr/bin/docker:
-    exists: true
-  /usr/bin/docker-compose:
-    exists: true
-  /usr/bin/git:
-    exists: true
