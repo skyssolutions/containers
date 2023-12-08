@@ -257,7 +257,7 @@ jobs:
         env:
           TAGS: ${{ toJSON(matrix.manifest.tags) }}
         run: |
-          docker buildx imagetools create $(jq -cr '. | map("-t registry.samipsolutions.fi/" + .) | join(" ")'  <<< "$TAGS") \
+          docker buildx imagetools create $(jq -cr '. | map("-t registry.samipsolutions.fi/library/" + .) | join(" ")'  <<< "$TAGS") \
               $(printf 'registry.samipsolutions.fi/library/${{ matrix.manifest.image }}@sha256:%s ' *)
 
       - name: Inspect image
