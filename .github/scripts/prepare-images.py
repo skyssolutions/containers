@@ -10,18 +10,22 @@ from os.path import isfile
 
 
 def get_upstream_version(app, channel):
-    use_channel_script = False
-    latest_script = f"./apps/{app}/ci/latest.sh"
-    latest_channel_script = f"./apps/{app}/{channel}/ci/latest.sh"
-    if not isfile(latest_script) and not isfile(latest_channel_script):
-        return ""
-    elif isfile(latest_channel_script):
-        use_channel_script = True
+    latest_py = f"./apps/{app}/ci/latest.py"
+    latest_sh = f"./apps/{app}/ci/latest.sh"
+    latest_channel_py = f"./apps/{app}/{channel}/ci/latest.py"
+    latest_channel_sh = f"./apps/{app}/{channel}/ci/latest.sh"
 
-    if use_channel_script:
-        args = [latest_channel_script, channel]
+    if isfile(latest_channel_py):
+        args = ["python", latest_channel_py, channel]
+    elif isfile(latest_channel_sh):
+        args = ["bash", latest_channel_sh, channel]
+    elif isfile(latest_py):
+        args = ["python", latest_py, channel]
+    elif isfile(latest_sh):
+        args = ["bash", latest_sh, channel]
     else:
-        args = [latest_script, channel]
+        return ""
+
     output = subprocess.check_output(args)
     return output.decode("utf-8").strip()
 
