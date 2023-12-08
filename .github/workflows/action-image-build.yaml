@@ -130,7 +130,7 @@ jobs:
               #outputs="type=docker,name=${image_name},push=false"
               outputs="type=docker,name=${image_name_custom},push=false"
           fi
-          echo "image_name=${image_name}" >> $GITHUB_OUTPUT
+          echo "image_name=${image_name_custom}" >> $GITHUB_OUTPUT
           echo "outputs=${outputs}" >> $GITHUB_OUTPUT
           #echo "output_harbor=${output_harbor}" >> $GITHUB_OUTPUT
           echo "Outputs to be written to GITHUB_OUTPUT:"
