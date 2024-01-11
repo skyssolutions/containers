@@ -5,7 +5,7 @@ ARG VERSION
 ARG CHANNEL
 
 ENV ARGTABLE_VER="2.13"
-ENV XMLTV_VER="v1.2.1"
+ENV XMLTV_VER="v1.1.2"
 ENV HOME="/config"
 
 COPY ./apps/tvheadend/patches/ /tmp/patches/
