@@ -1,11 +1,11 @@
-FROM ghcr.io/onedr0p/alpine:3.17.3 as builder
+FROM ghcr.io/onedr0p/alpine:3.19.0 as builder
 
 ARG TARGETPLATFORM
 ARG VERSION
 ARG CHANNEL
 
 ENV ARGTABLE_VER="2.13"
-ENV XMLTV_VER="v1.1.2"
+ENV XMLTV_VER="v1.2.1"
 ENV HOME="/config"
 
 COPY ./apps/tvheadend/patches/ /tmp/patches/
