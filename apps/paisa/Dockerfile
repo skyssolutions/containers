@@ -1,12 +1,12 @@
 FROM registry.samipsolutions.fi/docker/node:18-alpine3.18 as web
 RUN apk --no-cache add git
-RUN mkdir -p /usr/src/paisa && git clone -b v0.6.6 https://github.com/ananthakumaran/paisa.git /usr/src/paisa
+RUN mkdir -p /usr/src/paisa && git clone  https://github.com/ananthakumaran/paisa.git /usr/src/paisa && cd /usr/src/paisa && git checkout 3c16a53ee0c14acf87c42e07cb82ad18a6356fe1
 WORKDIR /usr/src/paisa
 RUN npm install && npm run build
 
-FROM registry.samipsolutions.fi/docker/golang:1.20-alpine3.18 as go
+FROM registry.samipsolutions.fi/docker/golang:1.21-alpine3.18 as go
 RUN apk --no-cache add git
-RUN mkdir -p /usr/src/paisa && git clone -b v0.6.6 https://github.com/ananthakumaran/paisa.git /usr/src/paisa
+RUN mkdir -p /usr/src/paisa && git clone  https://github.com/ananthakumaran/paisa.git /usr/src/paisa && cd /usr/src/paisa && git checkout 3c16a53ee0c14acf87c42e07cb82ad18a6356fe1
 WORKDIR /usr/src/paisa
 RUN apk --no-cache add sqlite gcc g++
 RUN go mod download && go mod verify
