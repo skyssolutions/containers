@@ -22,7 +22,7 @@ RUN \
     && \
     mkdir -p /app \
     && chown -R kah:kah /app \
-    && chmod -R 775 /app \
+    && chmod -R 775 /app
 USER kah
 WORKDIR /app
 COPY --from=go /usr/src/paisa/paisa /usr/bin
