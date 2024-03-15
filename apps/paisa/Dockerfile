@@ -17,12 +17,8 @@ FROM registry.samipsolutions.fi/docker/alpine:3.18
 RUN mkdir /app && apk --no-cache add ca-certificates ledger hledger
 USER root
 RUN \
-    adduser kah \
-        --uid 568 \
-        --group \
-        --system \
-        --disabled-password \
-        --no-create-home \
+    addgroup -S kah --gid 568 \
+     && adduser -S kah -G kah --uid 568 \
     && \
     mkdir -p /app \
     && chown -R kah:kah /app \
