@@ -15,6 +15,19 @@ RUN CGO_ENABLED=1 go build
 
 FROM registry.samipsolutions.fi/docker/alpine:3.18
 RUN mkdir /app && apk --no-cache add ca-certificates ledger hledger
+USER root
+RUN \
+    adduser kah \
+        --uid 568 \
+        --group \
+        --system \
+        --disabled-password \
+        --no-create-home \
+    && \
+    mkdir -p /app \
+    && chown -R kah:kah /app \
+    && chmod -R 775 /app \
+USER kah
 WORKDIR /app
 COPY --from=go /usr/src/paisa/paisa /usr/bin
 EXPOSE 7500
