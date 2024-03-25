@@ -67,7 +67,7 @@ jobs:
 
   build-platform-images:
     name: Build/Test ${{ matrix.image.chan_image_name }} - ${{ matrix.image.platform }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.image.builder }}
     needs:
       - prepare
     strategy:
