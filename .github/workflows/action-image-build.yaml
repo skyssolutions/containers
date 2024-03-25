@@ -34,12 +34,12 @@ on:
 jobs:
   prepare:
     name: Prepare Matrices
-    runs-on: buildjet-2vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     outputs:
       matrices: ${{ steps.generate-matrices.outputs.matrices }}
     if: ${{ inputs.imagesToBuild != '' && inputs.imagesToBuild != '[]' }}
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
           fetch-depth: 1
 
@@ -50,7 +50,7 @@ jobs:
           echo 'sendNotification=${{ inputs.sendNotification }}'
 
       - name: Setup CUE
-        uses: cue-lang/setup-cue@a93fa358375740cd8b0078f76355512b9208acb1
+        uses: cue-lang/setup-cue@1713281ae501e533ff06108005dffeab9e2e5203
 
       - name: Validate Image Metadata
         shell: bash
@@ -62,33 +62,28 @@ jobs:
         id: generate-matrices
         run: |
           matrices=$(./.github/scripts/prepare-images.py '${{ inputs.imagesToBuild }}' '${{ inputs.pushImages }}')
-          echo ${matrices}
           echo "matrices=${matrices}" >> $GITHUB_OUTPUT
 
   build-platform-images:
-    name: Build/Test ${{ matrix.image.chan_image_name }} (${{ matrix.image.channel }}) - ${{ matrix.image.platform }}
-    runs-on: ${{ matrix.image.builder }}
+    name: Build/Test ${{ matrix.image.chan_image_name }} - ${{ matrix.image.platform }}
+    runs-on: ubuntu-latest
     needs:
       - prepare
     strategy:
       matrix:
         image: ["${{ fromJson(needs.prepare.outputs.matrices).imagePlatformPermutations }}"]
       fail-fast: false
-    permissions:
-      packages: write
-      contents: read
     steps:
       - name: Log Matrix Input
         run: |
           cat << EOF
           ${{ toJSON(matrix.image) }}
           EOF
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
           fetch-depth: 1
 
       - name: Set up Docker Buildx
-        id: builder
         uses: docker/setup-buildx-action@v3
 
       - name: Setup GHCR
@@ -98,20 +93,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Harbor
-        uses: docker/login-action@v3
-        with:
-          registry: registry.samipsolutions.fi
-          username: ${{ secrets.HARBOR_USER }}
-          password: ${{ secrets.HARBOR_PASSWORD }}
-
       - name: Setup Tools
         shell: bash
         run: sudo apt-get install -y moreutils jo
 
       - name: Setup Goss
         if: ${{ matrix.image.chan_tests_enabled }}
-        uses: e1himself/goss-installation-action@v1.2.1
+        uses: e1himself/goss-installation-action@v1.1.0
         with:
           version: v0.3.21
 
@@ -119,24 +107,14 @@ jobs:
         id: prepare-build-outputs
         run: |
           if [[ ${{ inputs.pushImages }} == 'true' ]]; then
-              #image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_image_name }}"
-              image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_image_name }}"
-              #outputs="type=image,name=${image_name},push-by-digest=true,name-canonical=true,push=true"
-              outputs="type=image,name=${image_name_custom},push-by-digest=true,name-canonical=true,push=true"
-              #echo "output_harbor=${output_harbor}" >> $GITHUB_OUTPUT
+              image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_image_name }}"
+              outputs="type=image,name=${image_name},push-by-digest=true,name-canonical=true,push=true"
           else
-              #image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_tag_testing }}"
-              image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_tag_testing }}"
-              #outputs="type=docker,name=${image_name},push=false"
-              outputs="type=docker,name=${image_name_custom},push=false"
+              image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_tag_testing }}"
+              outputs="type=docker,name=${image_name},push=false"
           fi
-          echo "image_name=${image_name_custom}" >> $GITHUB_OUTPUT
+          echo "image_name=${image_name}" >> $GITHUB_OUTPUT
           echo "outputs=${outputs}" >> $GITHUB_OUTPUT
-          #echo "output_harbor=${output_harbor}" >> $GITHUB_OUTPUT
-          echo "Outputs to be written to GITHUB_OUTPUT:"
-          echo "image_name=${image_name_custom}"
-          echo "${outputs}"
-          #echo "${output_harbor}"
 
       - name: Build Image
         uses: docker/build-push-action@v5
@@ -144,7 +122,6 @@ jobs:
         with:
           build-args: |-
             VERSION=${{ matrix.image.chan_upstream_version }}
-            DEBIAN_VERSION=${{ matrix.image.chan_debian_version }}
             CHANNEL=${{ matrix.image.channel }}
           context: .
           platforms: ${{ matrix.image.platform }}
@@ -176,22 +153,22 @@ jobs:
         id: export-digest
         if: ${{ inputs.pushImages == 'true' }}
         run: |
-          mkdir -p /tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests
+          mkdir -p /tmp/${{ matrix.image.chan_image_name }}/digests
           digest="${{ steps.build.outputs.digest }}"
-          echo "${{ matrix.image.platform }}" > "/tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/digests/${digest#sha256:}"
+          echo "${{ matrix.image.platform }}" > "/tmp/${{ matrix.image.chan_image_name }}/digests/${digest#sha256:}"
 
       - name: Upload Digest
         if: ${{ inputs.pushImages == 'true' }}
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.image.chan_image_name }}-${{ matrix.image.channel }}
-          path: /tmp/${{ matrix.image.chan_image_name }}/${{ matrix.image.channel }}/*
+          name: ${{ matrix.image.chan_image_name }}
+          path: /tmp/${{ matrix.image.chan_image_name }}/*
           if-no-files-found: error
           retention-days: 1
 
   merge:
     name: Merge ${{ matrix.manifest.image }}
-    runs-on: buildjet-2vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     needs:
       - prepare
       - build-platform-images
@@ -202,30 +179,27 @@ jobs:
       matrix:
         manifest: ["${{ fromJSON(needs.prepare.outputs.matrices).manifestsToBuild }}"]
       fail-fast: false
-    permissions:
-      packages: write
-      contents: read
     steps:
       - name: Download Digests
         uses: actions/download-artifact@v3
         with:
-          name: ${{ matrix.manifest.image }}-${{ matrix.manifest.channel }}
-          path: /tmp/${{ matrix.manifest.image }}/${{ matrix.manifest.channel }}
+          name: ${{ matrix.manifest.image }}
+          path: /tmp/${{ matrix.manifest.image }}
 
       - name: Ensure all platforms were built
         id: ensure-platforms
         run: |
-          EXPECTED_COUNT=$(cat << EOF | jq ". | length"
-          ${{ toJSON(matrix.manifest.platforms) }}
-          EOF
-          )
-          ACTUAL_COUNT=$(ls -1 /tmp/${{ matrix.manifest.image }}/${{ matrix.manifest.channel }}/digests | wc -l)
-          if [[ $EXPECTED_COUNT != $ACTUAL_COUNT ]]; then
-              echo "Expected $EXPECTED_COUNT platforms, but only found $ACTUAL_COUNT"
-              echo "Expected: ${{ toJSON(matrix.manifest.platforms) }}"
-              echo "Actual: $(cat /tmp/${{ matrix.manifest.image }}/${{ matrix.manifest.channel }}/digests/*)"
-              exit 1
-          fi
+            EXPECTED_COUNT=$(cat << EOF | jq ". | length"
+            ${{ toJSON(matrix.manifest.platforms) }}
+            EOF
+            )
+            ACTUAL_COUNT=$(ls -1 /tmp/${{ matrix.manifest.image }}/digests | wc -l)
+            if [[ $EXPECTED_COUNT != $ACTUAL_COUNT ]]; then
+                echo "Expected $EXPECTED_COUNT platforms, but only found $ACTUAL_COUNT"
+                echo "Expected: ${{ toJSON(matrix.manifest.platforms) }}"
+                echo "Actual: $(cat /tmp/${{ matrix.manifest.image }}/digests/*)"
+                exit 1
+            fi
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -237,15 +211,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Harbor
-        uses: docker/login-action@v3
-        with:
-          registry: registry.samipsolutions.fi
-          username: ${{ secrets.HARBOR_USER }}
-          password: ${{ secrets.HARBOR_PASSWORD }}
-
       - name: Log Files
-        working-directory: /tmp/${{ matrix.manifest.image }}/${{ matrix.manifest.channel }}/digests
+        working-directory: /tmp/${{ matrix.manifest.image }}/digests
         run: |
           ls -la
           cat *
@@ -253,16 +220,16 @@ jobs:
       # https://docs.docker.com/build/ci/github-actions/multi-platform/#distribute-build-across-multiple-runners
       - name: Merge Manifests
         id: merge
-        working-directory: /tmp/${{ matrix.manifest.image }}/${{ matrix.manifest.channel }}/digests
+        working-directory: /tmp/${{ matrix.manifest.image }}/digests
         env:
           TAGS: ${{ toJSON(matrix.manifest.tags) }}
         run: |
-          docker buildx imagetools create $(jq -cr '. | map("-t registry.samipsolutions.fi/library/" + .) | join(" ")'  <<< "$TAGS") \
-              $(printf 'registry.samipsolutions.fi/library/${{ matrix.manifest.image }}@sha256:%s ' *)
+          docker buildx imagetools create $(jq -cr '. | map("-t ghcr.io/${{ github.repository_owner }}/" + .) | join(" ")'  <<< "$TAGS") \
+              $(printf 'ghcr.io/${{ github.repository_owner }}/${{ matrix.manifest.image }}@sha256:%s ' *)
 
       - name: Inspect image
         run: |
-          docker buildx imagetools inspect registry.samipsolutions.fi/library/${{ matrix.manifest.image }}:${{ matrix.manifest.version }}
+          docker buildx imagetools inspect ghcr.io/${{ github.repository_owner }}/${{ matrix.manifest.image }}:${{ matrix.manifest.version }}
 
       - name: Build successful
         id: build-success
@@ -278,14 +245,14 @@ jobs:
           echo "message=💥 ${{ matrix.manifest.app }}-${{ matrix.manifest.channel }} (${{ matrix.manifest.version }})" >> $GITHUB_OUTPUT
           echo "color=0xFF0000" >> $GITHUB_OUTPUT
 
-      - name: Send Discord Webhook
-        uses: sarisia/actions-status-discord@v1
-        if: ${{ always() && inputs.sendNotification == 'true' }}
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          title: ${{ steps.build-failed.outputs.message || steps.build-success.outputs.message }}
-          color: ${{ steps.build-failed.outputs.color || steps.build-success.outputs.color }}
-          username: GitHub Actions
+      # - name: Send Discord Webhook
+      #   uses: sarisia/actions-status-discord@v1
+      #   if: ${{ always() && inputs.sendNotification == 'true' }}
+      #   with:
+      #     webhook: ${{ secrets.DISCORD_WEBHOOK }}
+      #     title: ${{ steps.build-failed.outputs.message || steps.build-success.outputs.message }}
+      #     color: ${{ steps.build-failed.outputs.color || steps.build-success.outputs.color }}
+      #     username: GitHub Actions
 
   # Summarize matrix https://github.community/t/status-check-for-a-matrix-jobs/127354/7
   build_success:
