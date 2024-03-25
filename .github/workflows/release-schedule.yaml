@@ -7,44 +7,34 @@ concurrency:
 
 on:
   workflow_dispatch:
+    inputs:
+      appsToBuild:
+        description: App(s) to build
+        required: false
+        type: string
+        default: all
+      force:
+        description: Force rebuild
+        type: boolean
+        default: false
+        required: true
   schedule:
     - cron: "0 6 * * 1"
 
-env:
-  TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
-  determine-images:
-    name: Determine Images to Build
-    runs-on: ubuntu-latest
-    outputs:
-      imagesToBuild: ${{ steps.fetch.outputs.changes }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+  simple-checks:
+    name: Simple Checks
+    uses: onedr0p/containers/.github/workflows/simple-checks.yaml@main
 
-      - name: Install tools
-        run: sudo apt-get install moreutils jo
-
-      - name: Generate Token
-        uses: tibdex/github-app-token@v2
-        id: generate-token
-        with:
-          app_id: "${{ secrets.BOT_APP_ID }}"
-          private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
-
-      - name: Fetch new app versions
-        id: fetch
-        run: ./.github/scripts/fetch.py
-        env:
-          TOKEN: "${{ steps.generate-token.outputs.token }}"
-
-  images-build:
-    uses: samipsolutions/containers/.github/workflows/action-image-build.yaml@main
-    if: needs.determine-images.outputs.imagesToBuild != '[]'
-    needs: ["determine-images"]
-    with:
-      imagesToBuild: "${{ needs.determine-images.outputs.imagesToBuild }}"
-      pushImages: "true"
-      sendNotification: "true"
+  build-images:
+    uses: samipsolutions/containers/.github/workflows/build-images.yaml@main
+    needs: simple-checks
     secrets: inherit
+    permissions:
+      contents: read
+      packages: write
+    with:
+      appsToBuild: ${{ inputs.appsToBuild }}
+      force: ${{ inputs.force == true }}
+      pushImages: true
+      sendNotifications: true
