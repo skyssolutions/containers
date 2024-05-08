@@ -1,4 +1,4 @@
-FROM alpine:2.19
+FROM alpine:3.19
 
 ARG TARGETPLATFORM
 ARG VERSION
@@ -12,6 +12,10 @@ RUN \
         'linux/amd64') export ARCH='amd64' ;; \
         'linux/arm64') export ARCH='arm64' ;; \
     esac \
+    && \
+    apk add --no-cache curl \
+    && \
+    mkdir -p /app \
     && \
     curl -fsSL "https://github.com/Unpackerr/unpackerr/releases/download/v${VERSION}/unpackerr.${ARCH}.linux.gz" \
         -o /tmp/unpackerr.gz \
