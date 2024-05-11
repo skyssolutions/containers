@@ -20,7 +20,7 @@ RUN apk add --no-cache \
     bind-tools
 
 COPY --from=build /usr/local/sbin/* /usr/local/sbin/
-RUN groupadd -g 109 bind && adduser -D -h /etc/bind -u 102 -g 109 bind
+RUN addgroup -g 109 bind && adduser -D -h /etc/bind -u 102 -g 109 bind
 RUN mkdir -p /etc/bind && chown root:bind /etc/bind/ && chmod 755 /etc/bind
 COPY ./apps/bind/nat64-prefixes /etc/bind/nat64-prefixes
 COPY ./apps/bind/entrypoint.sh /entrypoint.sh
