@@ -1,4 +1,4 @@
-FROM ghcr.io/onedr0p/alpine:3.19.0 as builder
+FROM registry.skysolutions.fi/docker.io/alpine:3.19 as builder
 
 ARG TARGETPLATFORM
 ARG VERSION
