@@ -1,0 +1,18 @@
+{
+  "app": "bind9",
+  "base": false,
+  "channels": [
+    {
+      "name": "9.18.24-nat64",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "stable": true,
+      "tests": {
+        "enabled": false,
+        "type": "cli"
+      }
+    }
+  ]
+}
