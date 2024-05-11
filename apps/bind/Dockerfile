@@ -5,10 +5,7 @@ RUN apk add --no-cache \
     gcc \
     make \
     git \
-    musl-dev \
-    libcap-dev \
-    libseccomp-dev \
-    yajl-dev
+    musl-dev
 
 WORKDIR /usr/src/
 RUN git clone https://git.skysolutions.fi/kryptonian/nat64health.git && cd nat64health && make
