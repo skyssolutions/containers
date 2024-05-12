@@ -31,7 +31,7 @@
       "automerge": false,
       "automergeType": "branch",
       "ignoreTests": true,
-      "matchUpdateTypes": ["minor", "patch"]
+      "matchUpdateTypes": ["minor", "patch"],
       "matchPackageNames" ["perl"]
     },
     {
