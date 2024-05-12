@@ -32,7 +32,7 @@
       "automergeType": "branch",
       "ignoreTests": true,
       "matchUpdateTypes": ["minor", "patch"]
-      "matchPackageNames" ["perl"],
+      "matchPackageNames" ["perl"]
     },
     {
       "matchDatasources": ["docker"],
