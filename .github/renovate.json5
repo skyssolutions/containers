@@ -26,6 +26,15 @@
       "matchUpdateTypes": ["minor", "patch"]
     },
     {
+      "description": "Perl ignore",
+      "matchDatasources": ["github-tags"],
+      "automerge": false,
+      "automergeType": "branch",
+      "ignoreTests": true,
+      "matchUpdateTypes": ["minor", "patch"]
+      "matchPackageNames" ["perl"],
+    },
+    {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["digest"],
       "commitMessagePrefix": "📣 "
