@@ -18,7 +18,7 @@ on:
         required: true
       push:
         description: "Push"
-        default: "false"
+        default: "true"
         required: true
 
 env:
