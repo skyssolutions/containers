@@ -113,6 +113,9 @@ RUN \
         zlib-dev
 
 RUN \
+    apk add --no-cache perl-soap-lite --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing
+
+RUN \
     rm -rf /usr/include/iconv.h \
     && cp /usr/include/gnu-libiconv/iconv.h /usr/include/iconv.h
 
