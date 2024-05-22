@@ -45,6 +45,7 @@ jobs:
       - name: Install requirements
         shell: bash
         run: |
+          python3 -m ensurepip --upgrade
           python3 -m pip install -r ./.github/scripts/requirements.txt
 
       - name: Log images to build
