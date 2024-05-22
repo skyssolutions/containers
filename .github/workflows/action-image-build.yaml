@@ -101,7 +101,7 @@ jobs:
       - name: Setup Harbor
         uses: docker/login-action@v3
         with:
-          registry: registry.samipsolutions.fi
+          registry: registry.skysolutions.fi
           username: ${{ secrets.HARBOR_USER }}
           password: ${{ secrets.HARBOR_PASSWORD }}
 
@@ -120,13 +120,13 @@ jobs:
         run: |
           if [[ ${{ inputs.pushImages }} == 'true' ]]; then
               #image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_image_name }}"
-              image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_image_name }}"
+              image_name_custom="registry.skysolutions.fi/library/${{ matrix.image.chan_image_name }}"
               #outputs="type=image,name=${image_name},push-by-digest=true,name-canonical=true,push=true"
               outputs="type=image,name=${image_name_custom},push-by-digest=true,name-canonical=true,push=true"
               #echo "output_harbor=${output_harbor}" >> $GITHUB_OUTPUT
           else
               #image_name="ghcr.io/${{ github.repository_owner }}/${{ matrix.image.chan_tag_testing }}"
-              image_name_custom="registry.samipsolutions.fi/library/${{ matrix.image.chan_tag_testing }}"
+              image_name_custom="registry.skysolutions.fi/library/${{ matrix.image.chan_tag_testing }}"
               #outputs="type=docker,name=${image_name},push=false"
               outputs="type=docker,name=${image_name_custom},push=false"
           fi
@@ -240,7 +240,7 @@ jobs:
       - name: Setup Harbor
         uses: docker/login-action@v3
         with:
-          registry: registry.samipsolutions.fi
+          registry: registry.skysolutions.fi
           username: ${{ secrets.HARBOR_USER }}
           password: ${{ secrets.HARBOR_PASSWORD }}
 
@@ -257,12 +257,12 @@ jobs:
         env:
           TAGS: ${{ toJSON(matrix.manifest.tags) }}
         run: |
-          docker buildx imagetools create $(jq -cr '. | map("-t registry.samipsolutions.fi/library/" + .) | join(" ")'  <<< "$TAGS") \
-              $(printf 'registry.samipsolutions.fi/library/${{ matrix.manifest.image }}@sha256:%s ' *)
+          docker buildx imagetools create $(jq -cr '. | map("-t registry.skysolutions.fi/library/" + .) | join(" ")'  <<< "$TAGS") \
+              $(printf 'registry.skysolutions.fi/library/${{ matrix.manifest.image }}@sha256:%s ' *)
 
       - name: Inspect image
         run: |
-          docker buildx imagetools inspect registry.samipsolutions.fi/library/${{ matrix.manifest.image }}:${{ matrix.manifest.version }}
+          docker buildx imagetools inspect registry.skysolutions.fi/library/${{ matrix.manifest.image }}:${{ matrix.manifest.version }}
 
       - name: Build successful
         id: build-success

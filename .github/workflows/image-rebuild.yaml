@@ -63,7 +63,7 @@ jobs:
           echo "Changes:\n ${output}"
 
   images-build:
-    uses: samipsolutions/containers/.github/workflows/action-image-build.yaml@main
+    uses: ./.github/workflows/action-image-build.yaml
     needs:
       - determine-images
     with:

@@ -30,7 +30,7 @@ jobs:
   build-images:
     name: Build Images
     needs: simple-checks
-    uses: samipsolutions/containers/.github/workflows/build-images.yaml@main
+    uses: ./.github/workflows/build-images.yaml
     permissions:
       contents: read
       packages: write
