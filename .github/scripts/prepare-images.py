@@ -16,11 +16,11 @@ def get_upstream_version(app, channel):
     latest_channel_sh = f"./apps/{app}/{channel}/ci/latest.sh"
 
     if isfile(latest_channel_py):
-        args = ["python", latest_channel_py, channel]
+        args = ["python3", latest_channel_py, channel]
     elif isfile(latest_channel_sh):
         args = ["bash", latest_channel_sh, channel]
     elif isfile(latest_py):
-        args = ["python", latest_py, channel]
+        args = ["python3", latest_py, channel]
     elif isfile(latest_sh):
         args = ["bash", latest_sh, channel]
     else:
