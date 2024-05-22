@@ -207,6 +207,13 @@ RUN \
     && make -j $(nproc) \
     && make DESTDIR=/tmp/comskip-build install
 
+WORKDIR /tmp/comchap
+RUN \
+    git clone --depth 1 https://github.com/BrettSheleski/comchap.git . \
+    && make -j $(nproc) \
+    && make PREFIX=/tmp/comchap-build install
+
+
 FROM ghcr.io/onedr0p/alpine:3.17.3
 
 ARG TARGETPLATFORM
@@ -317,6 +324,8 @@ COPY --from=builder /tmp/argtable-build/usr/ /usr/
 COPY --from=builder /tmp/comskip-build/usr/ /usr/
 COPY --from=builder /tmp/tvheadend-build/usr/ /usr/
 COPY --from=builder /tmp/xmltv-build/usr/ /usr/
+COPY --from=builder /tmp/comchap/lib/  /lib/
+COPY --from=builder /tmp/comchap/bin/  /usr/bin/
 COPY --from=builder /usr/local/share/man/ /usr/local/share/man/
 COPY --from=builder /usr/local/share/perl5/ /usr/local/share/perl5/
 
