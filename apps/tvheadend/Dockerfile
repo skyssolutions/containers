@@ -220,7 +220,7 @@ RUN \
     && make PREFIX=/tmp/comchap-build install
 
 
-FROM ghcr.io/onedr0p/alpine:3.17.3
+FROM registry.skysolutions.fi/docker.io/alpine:3.19
 
 ARG TARGETPLATFORM
 ARG VERSION
@@ -317,6 +317,9 @@ RUN \
         zlib
 
 RUN \
+    apk add --no-cache perl-soap-lite --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing
+
+RUN \
     mkdir -p /app/picons \
     && curl -fsSL "https://lsio-ci.ams3.digitaloceanspaces.com/picons/picons.tar.bz2" \
         | tar xjf - -C /app/picons \
@@ -335,7 +338,7 @@ COPY --from=builder /tmp/comchap/bin/  /usr/bin/
 COPY --from=builder /usr/local/share/man/ /usr/local/share/man/
 COPY --from=builder /usr/local/share/perl5/ /usr/local/share/perl5/
 
-USER kah
+USER nobody
 COPY ./apps/tvheadend/defaults /app/defaults
 COPY ./apps/tvheadend/entrypoint.sh /entrypoint.sh
 CMD ["/entrypoint.sh"]
