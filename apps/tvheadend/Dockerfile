@@ -1,4 +1,4 @@
-FROM registry.skysolutions.fi/docker.io/alpine:3.19 as builder
+FROM registry.skysolutions.fi/docker.io/alpine:3.18 as builder
 
 ARG TARGETPLATFORM
 ARG VERSION
@@ -214,7 +214,7 @@ RUN \
     && make DESTDIR=/tmp/comskip-build install
 
 
-FROM registry.skysolutions.fi/docker.io/alpine:3.19
+FROM registry.skysolutions.fi/docker.io/alpine:3.18
 
 ARG TARGETPLATFORM
 ARG VERSION
