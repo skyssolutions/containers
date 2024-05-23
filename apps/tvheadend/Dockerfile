@@ -152,6 +152,8 @@ RUN \
         git checkout "master~${NUMBER_COMMITS_TO_REVERT}"; \
     fi \
     && \
+    ls -al && chmod +x configure \
+    && \
     ./configure \
         `#Encoding` \
         --disable-ffmpeg_static \
