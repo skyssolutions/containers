@@ -1,4 +1,4 @@
-FROM registry.skysolutions.fi/docker.io/alpine:3.17.3 as builder
+FROM registry.skysolutions.fi/docker.io/alpine:3.19 as builder
 
 ARG TARGETPLATFORM
 ARG VERSION
