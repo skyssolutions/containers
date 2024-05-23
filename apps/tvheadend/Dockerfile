@@ -18,6 +18,7 @@ RUN \
     && \
     apk add --no-cache \
         ${EXTRA_PACKAGES} \
+        bash \
         autoconf \
         automake \
         bsd-compat-headers \
