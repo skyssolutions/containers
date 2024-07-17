@@ -21,5 +21,5 @@ COPY ./apps/mergerfs/mount_mergerfs.sh /usr/local/bin/mount_mergerfs.sh
 RUN chmod +x /usr/local/bin/mount_mergerfs.sh
 
 
-ENTRYPOINT ["/usr/bin/tini", "--"]
+ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/usr/local/bin/mount_mergerfs.sh"]
