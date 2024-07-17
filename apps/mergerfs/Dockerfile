@@ -10,7 +10,8 @@ RUN apk add --no-cache --update \
     xfsprogs \
     e2fsprogs \
     e2fsprogs-extra \
-    tini
+    tini \
+    bash
 
 ENV MERGERFS_SRC_PATHS="/var/mnt/disk*"
 ENV MERGERFS_DEST_PATH="/var/mnt/merged"
