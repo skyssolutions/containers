@@ -4,7 +4,7 @@ ARG TARGETPLATFORM
 ARG VERSION
 ARG CHANNEL
 
-RUN ap add --no-cache --update \
+RUN apk add --no-cache --update \
     mergerfs --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ \
     btrfs-progs \
     xfsprogs \
