@@ -34,7 +34,7 @@ on:
 jobs:
   prepare:
     name: Prepare Matrices
-    runs-on: arc-sol
+    runs-on: buildjet-4vcpu-ubuntu-2204
     outputs:
       matrices: ${{ steps.generate-matrices.outputs.matrices }}
     if: ${{ inputs.imagesToBuild != '' && inputs.imagesToBuild != '[]' }}
