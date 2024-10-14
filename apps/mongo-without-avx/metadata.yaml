@@ -1,0 +1,17 @@
+---
+app: mongo-without-avx
+semver: true
+build_disabled: true
+channels:
+  - name: 5.0.18
+    platforms: ["linux/amd64", "linux/arm64"]
+    stable: false
+    tests:
+      enabled: false
+      type: cli
+  - name: 6.3.2
+    platforms: [ "linux/amd64", "linux/arm64" ]
+    stable: false
+    tests:
+      enabled: false
+      type: cli

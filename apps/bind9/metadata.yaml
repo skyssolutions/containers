@@ -1,0 +1,10 @@
+---
+app: bind9
+semver: true
+channels:
+  - name: nat64
+    platforms: ["linux/adm64", "linux/arm64"]
+    stable: true
+    tests:
+      enabled: false
+      type: cli
