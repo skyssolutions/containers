@@ -64,10 +64,10 @@ For applications that need to have persistent configuration data the config volu
 
 Each Image will be built with a `rolling` tag, along with tags specific to it's version. Available Images Below
 
-Container | Channel | Mirror | Image
---- | --- | --- | ---
+Container | Channel | Image | Mirror
+--- | --- |-----| ---
 {% for image in app_images | sort(attribute="name") -%}
-[{{ image.name }}]({{ image.html_url }}) | {{ image.channel }} | registry.skysolutions.fi/library//{{ image.name }} | ghcr.io/{{ image.owner }}/{{ image.name }}
+[{{ image.name }}]({{ image.html_url }}) | {{ image.channel }} | registry.skysolutions.fi/library/{{ image.name }} | ghcr.io/{{ image.owner }}/{{ image.name }}
 {% endfor %}
 
 ## Deprecations
