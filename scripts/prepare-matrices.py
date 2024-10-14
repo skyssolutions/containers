@@ -140,7 +140,7 @@ def get_image_metadata(subdir, meta, forRelease=False, force=False, channels=Non
             if target_arch == "amd64":
                 platformToBuild["builder"] = "ubuntu-latest"
             elif target_arch == "arm64":
-                platformToBuild['builder'] = "buildjet-8vcpu-ubuntu-2204-arm"
+                platformToBuild['builder'] = "arc-sol-arm64"
 
             platformToBuild["goss_args"] = "tail -f /dev/null" if channel["tests"].get("type", "web") == "cli" else ""
 
