@@ -3,7 +3,7 @@ app: echoip
 semver: false
 channels:
   - name: latest
-    platform: ["linux/amd64", "linux/arm64"]
+    platforms: ["linux/amd64", "linux/arm64"]
     stable: true
     tests:
       enabled: false
