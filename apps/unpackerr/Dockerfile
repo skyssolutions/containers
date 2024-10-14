@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM public.ecr.aws/docker/library/alpine:3.20
 
 ARG TARGETPLATFORM
 ARG VERSION
@@ -24,7 +24,7 @@ RUN \
     && chmod -R 755 /app \
     && rm -rf /tmp/*
 
-USER kah
+USER nobody
 COPY ./apps/unpackerr/entrypoint.sh /entrypoint.sh
 CMD ["/entrypoint.sh"]
 
