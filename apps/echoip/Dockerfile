@@ -1,4 +1,4 @@
-FROM golang:1.22-bookworm AS build
+FROM registry.skysolutions.fi/docker.io/golang:1.22-bookworm AS build
 
 ARG TARGETPLATFORM
 ARG VERSION
@@ -14,7 +14,7 @@ ENV GO111MODULE=on CGO_ENABLED=0
 RUN make
 
 # Run
-FROM debian:bookworm
+FROM registry.skysolutions.fi/docker.io/debian:bookworm
 EXPOSE 8080
 
 COPY --from=build /go/bin/echoip /opt/echoip/
