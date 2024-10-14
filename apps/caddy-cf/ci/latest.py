@@ -4,7 +4,7 @@ import requests
 import re
 from packaging import version
 
-def get_latest_caddy_version():
+def get_latest():
     # Fetch tags from Docker Hub
     response = requests.get("https://registry.hub.docker.com/v2/repositories/library/caddy/tags?ordering=last_updated")
     tags = response.json()['results']
@@ -18,5 +18,5 @@ def get_latest_caddy_version():
     # Return the latest version
     return sorted_versions[0] if sorted_versions else None
 
-latest_version = get_latest_caddy_version()
+latest_version = get_latest()
 print(latest_version)
