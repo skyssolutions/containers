@@ -30,5 +30,5 @@ def get_latest(channel_name):
     # Return the latest version
     return sorted_versions[0] if sorted_versions else None
 
-latest_version = get_latest("stable")
-print(latest_version)
+#latest_version = get_latest("stable")
+#print(latest_version)
