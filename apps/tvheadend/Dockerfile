@@ -308,7 +308,8 @@ RUN \
         wget \
         x264 \
         x265 \
-        zlib
+        zlib \
+        bash
 
 RUN \
     apk add --no-cache perl-soap-lite --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing
