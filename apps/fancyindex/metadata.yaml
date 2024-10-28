@@ -1,0 +1,10 @@
+---
+app: fancyindex
+semver: false
+channels:
+  - name: latest
+    platforms: [ "linux/amd64"]
+    stable: true
+    tests:
+      enabled: true
+      type: web
