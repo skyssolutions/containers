@@ -16,7 +16,8 @@ RUN chmod +x -R /usr/share/docker-entrypoint.pre
 RUN apk add --no-cache \
         apache2-utils \
         git \
-        wget
+        wget \
+        bash
 
 COPY apps/fancyindex/src/nginx/* /etc/nginx/conf.d/
 RUN rm /etc/nginx/sites-enabled/default
@@ -36,8 +37,8 @@ COPY apps/fancyindex/src/theme.css flat-theme/theme.css
 RUN mkdir /share
 VOLUME /share
 
-ENV WEBUSER user
-ENV WEBPASSWORD pass
+ENV WEBUSER=user
+ENV WEBPASSWORD=pass
 
 EXPOSE 80
 
