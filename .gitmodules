@@ -1,0 +1,3 @@
+[submodule "ngx-fancyindex"]
+	path = apps/nginx-fancyindex/ngx-fancyindex
+	url = https://github.com/aperezdc/ngx-fancyindex.git
