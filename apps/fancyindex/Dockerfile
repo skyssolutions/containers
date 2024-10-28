@@ -4,9 +4,6 @@ ENV SET_CONTAINER_TIMEZONE=false
 ENV CONTAINER_TIMEZONE=""
 ENV DISABLE_AUTH=false
 
-# manage user www-data
-RUN usermod -u 1000 www-data
-
 # manage start container
 COPY apps/fancyindex/src/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
