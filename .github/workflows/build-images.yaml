@@ -151,7 +151,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: "${{ steps.app-token.outputs.token }}"
-          submodules: 'true'
+          submodules: 'recursive'
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
