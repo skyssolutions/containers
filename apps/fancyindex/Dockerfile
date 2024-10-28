@@ -1,4 +1,4 @@
-FROM registry.skysolutions.fi/library/nginx-fancyindex:28102024
+FROM registry.skysolutions.fi/library/nginx-fancyindex:28102024@sha256:937bfb6e05e8ec97e9955801f451e1a5969f504f106214807a5bc1dbc91b6204
 
 ENV SET_CONTAINER_TIMEZONE=false
 ENV CONTAINER_TIMEZONE=""

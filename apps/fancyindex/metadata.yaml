@@ -1,7 +1,6 @@
 ---
 app: fancyindex
 semver: false
-build_disabled: true
 channels:
   - name: latest
     platforms: [ "linux/amd64"]
