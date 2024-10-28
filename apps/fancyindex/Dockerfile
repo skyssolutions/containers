@@ -16,7 +16,6 @@ RUN chmod +x -R /usr/share/docker-entrypoint.pre
 RUN apk add --no-cache \
         apache2-utils \
         git \
-        nginx-extras \
         wget
 
 COPY apps/fancyindex/src/nginx/* /etc/nginx/conf.d/
