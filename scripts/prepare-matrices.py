@@ -138,7 +138,7 @@ def get_image_metadata(subdir, meta, forRelease=False, force=False, channels=Non
                 platformToBuild["goss_config"] = os.path.join(subdir, "ci", "goss.yaml")
 
             if target_arch == "amd64":
-                platformToBuild["builder"] = "arc-sol"
+                platformToBuild["builder"] = "ubuntu-latest"
             elif target_arch == "arm64":
                 platformToBuild['builder'] = "arc-sol-arm64"
 

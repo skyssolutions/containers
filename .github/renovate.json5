@@ -8,8 +8,8 @@
     ":automergeDigest"
   ],
   "platform": "github",
-  "username": "samipsolutions-bot[bot]",
-  "gitAuthor": "samipsolutions-bot[bot] <118629685+samipsolutions-bot@users.noreply.github.com>",
+  "username": "terminator-bot[bot]",
+  "gitAuthor": "terminator-bot[bot] <184962450+terminator-bot@users.noreply.github.com>",
   "repositories": ["samipsolutions/containers"],
   "onboarding": false,
   "requireConfig": "optional",

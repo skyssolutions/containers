@@ -13,7 +13,7 @@ RUN \
         'linux/arm64') export ARCH='arm64' ;; \
     esac \
     && \
-    apk add --no-cache curl \
+    apk add --no-cache curl bash \
     && \
     mkdir -p /app \
     && \
