@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM alpine:3.18
 
 ENV NGINX_VERSION 1.21.6
 
@@ -10,21 +10,21 @@ RUN \
  apk add --no-cache \
         apache2-utils \
         git \
-        libressl3.0-libssl \
+        libssl3 \
         logrotate \
         nano \
         openssl \
-        php7 \
-        php7-fileinfo \
-        php7-fpm \
-        php7-json \
-        php7-mbstring \
-        php7-openssl \
-        php7-session \
-        php7-simplexml \
-        php7-xml \
-        php7-xmlwriter \
-        php7-zlib
+        php82 \
+        php82-fileinfo \
+        php82-fpm \
+        php82-json \
+        php82-mbstring \
+        php82-openssl \
+        php82-session \
+        php82-simplexml \
+        php82-xml \
+        php82-xmlwriter \
+        php82-zlib
 
 RUN CONFIG="\
                 --add-module=/ngx-fancyindex \
