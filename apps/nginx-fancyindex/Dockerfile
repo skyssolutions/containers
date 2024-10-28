@@ -1,6 +1,6 @@
 FROM alpine:3.18
 
-ENV NGINX_VERSION 1.21.6
+ENV NGINX_VERSION=1.21.6
 
 COPY apps/nginx-fancyindex/ngx-fancyindex /ngx-fancyindex
 
