@@ -150,7 +150,8 @@ echo "**** fix logrotate ****" && \
 
 
 # add local files
-COPY apps/nginx-fancyindex/root/ /
+COPY apps/nginx-fancyindex/root/defaults/default /etc/nginx/sites-enabled/default
+COPY apps/nginx-fancyindex/root/defaults/nginx.conf /etc/nginx/nginx.conf
 
 # ports and volumes
 EXPOSE 80 443
