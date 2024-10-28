@@ -73,6 +73,7 @@ Container | Channel | Image | Mirror
 [mergerfs](https://github.com/skyssolutions/pkgs/container/mergerfs) | latest | registry.skysolutions.fi/library/mergerfs | ghcr.io/skyssolutions/mergerfs
 [mongo-without-avx-5.0.18](https://github.com/skyssolutions/pkgs/container/mongo-without-avx-5.0.18) | 5.0.18 | registry.skysolutions.fi/library/mongo-without-avx-5.0.18 | ghcr.io/skyssolutions/mongo-without-avx-5.0.18
 [mongo-without-avx-6.3.2](https://github.com/skyssolutions/pkgs/container/mongo-without-avx-6.3.2) | 6.3.2 | registry.skysolutions.fi/library/mongo-without-avx-6.3.2 | ghcr.io/skyssolutions/mongo-without-avx-6.3.2
+[nginx-fancyindex](https://github.com/skyssolutions/pkgs/container/nginx-fancyindex) | latest | registry.skysolutions.fi/library/nginx-fancyindex | ghcr.io/skyssolutions/nginx-fancyindex
 [paisa](https://github.com/skyssolutions/pkgs/container/paisa) | latest | registry.skysolutions.fi/library/paisa | ghcr.io/skyssolutions/paisa
 [tvheadend](https://github.com/skyssolutions/pkgs/container/tvheadend) | stable | registry.skysolutions.fi/library/tvheadend | ghcr.io/skyssolutions/tvheadend
 [unpackerr](https://github.com/skyssolutions/pkgs/container/unpackerr) | stable | registry.skysolutions.fi/library/unpackerr | ghcr.io/skyssolutions/unpackerr
