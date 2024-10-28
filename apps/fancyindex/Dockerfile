@@ -17,7 +17,8 @@ RUN apk add --no-cache \
         apache2-utils \
         git \
         wget \
-        bash
+        bash \
+        tzdata
 
 COPY apps/fancyindex/src/nginx/* /etc/nginx/conf.d/
 RUN rm /etc/nginx/sites-enabled/default
