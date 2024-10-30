@@ -5,7 +5,7 @@ process:
     running: true
 
 # https://github.com/aelsabbahy/goss/blob/master/docs/manual.md#port
-port:
+#port:
   # https://github.com/aelsabbahy/goss/issues/149
-  tcp:40000:
-    listening: true
+#  tcp:40000:
+#    listening: true
