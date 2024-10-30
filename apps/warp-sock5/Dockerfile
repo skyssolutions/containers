@@ -21,8 +21,8 @@ RUN apk add --no-cache curl \
   && mv ./wireproxy /usr/bin
 
 # Add custom scripts and set up entrypoint
-ADD entrypoint.sh /usr/local/bin/entrypoint.sh
-ADD warp-health-check.sh /usr/local/bin/warp-health-check.sh
+ADD apps/warp-sock5/entrypoint.sh /usr/local/bin/entrypoint.sh
+ADD apps/warp-sock5/warp-health-check.sh /usr/local/bin/warp-health-check.sh
 EXPOSE 40000/tcp
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD []
