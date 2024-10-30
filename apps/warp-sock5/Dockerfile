@@ -12,7 +12,13 @@ RUN apk add --no-cache curl \
   && WGCF_URL="https://github.com/ViRb3/wgcf/releases/download/v${WGCF_VERSION}/wgcf_${WGCF_VERSION}_linux_${ARCH}" \
   && curl -fsSL "${WGCF_URL}" -o ./wgcf \
   && chmod +x ./wgcf \
-  && mv ./wgcf /usr/bin \
+  && mv ./wgcf /usr/bin
+
+RUN ARCH=$(uname -m) \
+  && if [ "${ARCH}" = "i386" ]; then ARCH="386"; fi \
+  && if [ "${ARCH}" = "i686" ]; then ARCH="386"; fi \
+  && if [ "${ARCH}" = "x86_64" ]; then ARCH="amd64"; fi \
+  && if [ "${ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
   && WIREPROXY_URL="https://github.com/pufferffish/wireproxy/releases/download/v${WIREPROXY_VERSION}/wireproxy_${WIREPROXY_VERSION}_linux_${ARCH}.tar.gz" \
   && curl -fsSL "${WIREPROXY_URL}" -o ./wireproxy.tar.gz \
   && tar -xzf wireproxy.tar.gz \
