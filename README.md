@@ -78,6 +78,7 @@ Container | Channel | Image | Mirror
 [paisa](https://github.com/skyssolutions/pkgs/container/paisa) | latest | registry.skysolutions.fi/library/paisa | ghcr.io/skyssolutions/paisa
 [tvheadend](https://github.com/skyssolutions/pkgs/container/tvheadend) | stable | registry.skysolutions.fi/library/tvheadend | ghcr.io/skyssolutions/tvheadend
 [unpackerr](https://github.com/skyssolutions/pkgs/container/unpackerr) | stable | registry.skysolutions.fi/library/unpackerr | ghcr.io/skyssolutions/unpackerr
+[warp-sock5](https://github.com/skyssolutions/pkgs/container/warp-sock5) | latest | registry.skysolutions.fi/library/warp-sock5 | ghcr.io/skyssolutions/warp-sock5
 
 
 ## Deprecations
