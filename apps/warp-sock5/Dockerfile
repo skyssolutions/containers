@@ -7,7 +7,6 @@ RUN uname -m
 
 RUN apk add --no-cache curl \
   && case "$(uname -m)" in \
-       "i386"|"i686") export ARCH="386" ;; \
        "x86_64") export ARCH="amd64" ;; \
        "aarch64") export ARCH="arm64" ;; \
        *) echo "Unsupported architecture"; exit 1 ;; \
@@ -17,7 +16,7 @@ RUN apk add --no-cache curl \
   && curl -fsSL "${WGCF_URL}" -o ./wgcf \
   && chmod +x ./wgcf \
   && mv ./wgcf /usr/bin \
-  && WIREPROXY_URL="https://github.com/pufferffish/wireproxy/releases/download/v${WIREPROXY_VERSION}/wireproxy_${WIREPROXY_VERSION}_linux_${ARCH}.tar.gz" \
+  && WIREPROXY_URL="https://github.com/pufferffish/wireproxy/releases/download/v${WIREPROXY_VERSION}/wireproxy_linux_${ARCH}.tar.gz" \
   && curl -fsSL "${WIREPROXY_URL}" -o ./wireproxy.tar.gz \
   && tar -xzf wireproxy.tar.gz \
   && rm wireproxy.tar.gz \
