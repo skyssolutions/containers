@@ -3,6 +3,8 @@ FROM alpine:3.20
 ENV WIREPROXY_VERSION=1.0.9
 ENV WGCF_VERSION=2.2.23
 
+RUN uname -m
+
 RUN apk add --no-cache curl \
   && case "$(uname -m)" in \
        "i386"|"i686") export ARCH="386" ;; \
@@ -10,6 +12,7 @@ RUN apk add --no-cache curl \
        "aarch64") export ARCH="arm64" ;; \
        *) echo "Unsupported architecture"; exit 1 ;; \
      esac \
+  && echo $ARCH \
   && WGCF_URL="https://github.com/ViRb3/wgcf/releases/download/v${WGCF_VERSION}/wgcf_${WGCF_VERSION}_linux_${ARCH}" \
   && curl -fsSL "${WGCF_URL}" -o ./wgcf \
   && chmod +x ./wgcf \
