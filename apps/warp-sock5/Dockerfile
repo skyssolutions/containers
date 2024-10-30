@@ -5,9 +5,9 @@ ENV WGCF_VERSION=2.2.23
 
 RUN apk add --no-cache curl \
   && case "$(uname -m)" in \
-       "i386"|"i686") ARCH="386" ;; \
-       "x86_64") ARCH="amd64" ;; \
-       "aarch64") ARCH="arm64" ;; \
+       "i386"|"i686") export ARCH="386" ;; \
+       "x86_64") export ARCH="amd64" ;; \
+       "aarch64") export ARCH="arm64" ;; \
        *) echo "Unsupported architecture"; exit 1 ;; \
      esac \
   && WGCF_URL="https://github.com/ViRb3/wgcf/releases/download/v${WGCF_VERSION}/wgcf_${WGCF_VERSION}_linux_${ARCH}" \
