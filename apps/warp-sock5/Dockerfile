@@ -4,21 +4,16 @@ ENV WIREPROXY_VERSION=1.0.9
 ENV WGCF_VERSION=2.2.23
 
 RUN apk add --no-cache curl \
-  && ARCH=$(uname -m) \
-  && if [ "${ARCH}" = "i386" ]; then ARCH="386"; fi \
-  && if [ "${ARCH}" = "i686" ]; then ARCH="386"; fi \
-  && if [ "${ARCH}" = "x86_64" ]; then ARCH="amd64"; fi \
-  && if [ "${ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
+  && case "$(uname -m)" in \
+       "i386"|"i686") ARCH="386" ;; \
+       "x86_64") ARCH="amd64" ;; \
+       "aarch64") ARCH="arm64" ;; \
+       *) echo "Unsupported architecture"; exit 1 ;; \
+     esac \
   && WGCF_URL="https://github.com/ViRb3/wgcf/releases/download/v${WGCF_VERSION}/wgcf_${WGCF_VERSION}_linux_${ARCH}" \
   && curl -fsSL "${WGCF_URL}" -o ./wgcf \
   && chmod +x ./wgcf \
-  && mv ./wgcf /usr/bin
-
-RUN ARCH=$(uname -m) \
-  && if [ "${ARCH}" = "i386" ]; then ARCH="386"; fi \
-  && if [ "${ARCH}" = "i686" ]; then ARCH="386"; fi \
-  && if [ "${ARCH}" = "x86_64" ]; then ARCH="amd64"; fi \
-  && if [ "${ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
+  && mv ./wgcf /usr/bin \
   && WIREPROXY_URL="https://github.com/pufferffish/wireproxy/releases/download/v${WIREPROXY_VERSION}/wireproxy_${WIREPROXY_VERSION}_linux_${ARCH}.tar.gz" \
   && curl -fsSL "${WIREPROXY_URL}" -o ./wireproxy.tar.gz \
   && tar -xzf wireproxy.tar.gz \
