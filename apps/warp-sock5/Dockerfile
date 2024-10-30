@@ -1,7 +1,7 @@
 FROM alpine:3.20
 
-ARG WIREPROXY_VERSION=1.0.9
-ARG WGCF_VERSION=2.2.23
+ENV WIREPROXY_VERSION=1.0.9
+ENV WGCF_VERSION=2.2.23
 
 RUN apk add --no-cache curl \
   && ARCH=$(uname -m) \
