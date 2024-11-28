@@ -47,7 +47,8 @@ RUN \
              sqlite \
              sqlite-dev \
              libexif-dev \
-             libexif
+             libexif \
+             fmt-dev
 
 WORKDIR /tmp/build
 RUN \
