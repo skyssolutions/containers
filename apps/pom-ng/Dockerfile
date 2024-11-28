@@ -34,6 +34,8 @@ RUN \
              libmicrohttpd \
              libmicrohttpd-dev \
              xmlrpc-c \
+             xmlrpc-c-dev \
+             lua5.1 \
              lua5.1-dev \
              uthash \
              uthash-dev \
