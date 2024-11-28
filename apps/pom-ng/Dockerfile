@@ -31,7 +31,6 @@ RUN \
              linux-headers \
              make \
              pkgconf \
-             autotools \
              libmicrohttpd \
              xmlrpc-c \
              lua5.1-dev \
