@@ -1,12 +1,11 @@
-FROM public.ecr.aws/docker/library/alpine:3.20.3
+FROM public.ecr.aws/docker/library/debian:12
+
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN \
-     apk add --no-cache \
+     apt-get install \
              ${EXTRA_PACKAGES} \
-             bash \
-             autoconf \
-             automake \
-             bsd-compat-headers \
+             build-essentials
              bzip2 \
              cmake \
              coreutils \
