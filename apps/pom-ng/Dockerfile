@@ -48,7 +48,7 @@ RUN \
              sqlite-dev \
              libexif-dev \
              libexif \
-             fmt-dev
+             musl-compat
 
 WORKDIR /tmp/build
 RUN \
