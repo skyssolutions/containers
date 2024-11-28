@@ -47,7 +47,7 @@ RUN \
 
 WORKDIR /tmp/build
 RUN \
-    git clone git://github.com/gmsoft-tuxicoman/pom-ng.git . \
+    git clone https://github.com/gmsoft-tuxicoman/pom-ng.git . \
     && autoreconf -f -i \
     && ./configure \
     && make -j $(nproc) \
