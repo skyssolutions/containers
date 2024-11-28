@@ -36,6 +36,7 @@ RUN \
              xmlrpc-c \
              lua5.1-dev \
              uthash \
+             uthash-dev \
              libpcap \
              libpcap-dev \
              zlib \
