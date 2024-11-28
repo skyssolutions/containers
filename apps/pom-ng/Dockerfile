@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN \
      apt-get install \
              ${EXTRA_PACKAGES} \
-             build-essentials
+             build-essentials \
              bzip2 \
              cmake \
              coreutils \
