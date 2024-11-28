@@ -32,6 +32,7 @@ RUN \
              make \
              pkgconf \
              libmicrohttpd \
+             libmicrohttpd-dev \
              xmlrpc-c \
              lua5.1-dev \
              uthash \
