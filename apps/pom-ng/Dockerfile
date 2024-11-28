@@ -47,9 +47,9 @@ RUN \
 
 WORKDIR /tmp/build
 RUN \
-    git clone git://github.com/gmsoft-tuxicoman/pom-ng.git . \
-    autoreconf -f -i \
-    ./configure \
-    make -j $(nproc) \
-    make DESTDIR=/tmp/xmltv-build install
+    && git clone git://github.com/gmsoft-tuxicoman/pom-ng.git . \
+    && autoreconf -f -i \
+    && ./configure \
+    && make -j $(nproc) \
+    && make DESTDIR=/tmp/xmltv-build install
 
