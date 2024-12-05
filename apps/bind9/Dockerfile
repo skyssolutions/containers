@@ -1,4 +1,4 @@
-FROM alpine:3.20 as build
+FROM alpine:3.21 as build
 
 RUN apk add --no-cache \
     build-base \
@@ -12,7 +12,7 @@ RUN git clone https://git.skysolutions.fi/kryptonian/nat64health.git && cd nat64
 WORKDIR /
 RUN mkdir -p /usr/local/sbin/ && cd /usr/src/nat64health && install health-daemon.py update-dns64 /usr/local/sbin
 
-FROM alpine:3.20
+FROM alpine:3.21
 
 RUN apk add --no-cache \
     python3 \
