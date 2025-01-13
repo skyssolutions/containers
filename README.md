@@ -70,11 +70,9 @@ Container | Channel | Image | Mirror
 [caddy-cf](https://github.com/skyssolutions/pkgs/container/caddy-cf) | stable | registry.skysolutions.fi/library/caddy-cf | ghcr.io/skyssolutions/caddy-cf
 [cni-plugins](https://github.com/skyssolutions/pkgs/container/cni-plugins) | stable | registry.skysolutions.fi/library/cni-plugins | ghcr.io/skyssolutions/cni-plugins
 [echoip](https://github.com/skyssolutions/pkgs/container/echoip) | latest | registry.skysolutions.fi/library/echoip | ghcr.io/skyssolutions/echoip
-[fancyindex](https://github.com/skyssolutions/pkgs/container/fancyindex) | latest | registry.skysolutions.fi/library/fancyindex | ghcr.io/skyssolutions/fancyindex
 [mergerfs](https://github.com/skyssolutions/pkgs/container/mergerfs) | latest | registry.skysolutions.fi/library/mergerfs | ghcr.io/skyssolutions/mergerfs
 [mongo-without-avx-5.0.18](https://github.com/skyssolutions/pkgs/container/mongo-without-avx-5.0.18) | 5.0.18 | registry.skysolutions.fi/library/mongo-without-avx-5.0.18 | ghcr.io/skyssolutions/mongo-without-avx-5.0.18
 [mongo-without-avx-6.3.2](https://github.com/skyssolutions/pkgs/container/mongo-without-avx-6.3.2) | 6.3.2 | registry.skysolutions.fi/library/mongo-without-avx-6.3.2 | ghcr.io/skyssolutions/mongo-without-avx-6.3.2
-[nginx-fancyindex](https://github.com/skyssolutions/pkgs/container/nginx-fancyindex) | latest | registry.skysolutions.fi/library/nginx-fancyindex | ghcr.io/skyssolutions/nginx-fancyindex
 [paisa](https://github.com/skyssolutions/pkgs/container/paisa) | latest | registry.skysolutions.fi/library/paisa | ghcr.io/skyssolutions/paisa
 [tvheadend](https://github.com/skyssolutions/pkgs/container/tvheadend) | stable | registry.skysolutions.fi/library/tvheadend | ghcr.io/skyssolutions/tvheadend
 [unpackerr](https://github.com/skyssolutions/pkgs/container/unpackerr) | stable | registry.skysolutions.fi/library/unpackerr | ghcr.io/skyssolutions/unpackerr
