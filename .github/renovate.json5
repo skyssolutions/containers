@@ -16,6 +16,18 @@
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prIgnoreNotification"],
   "commitBodyTable": true,
+  "customManagers": [
+    {
+      "customType": "regex",
+      "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}",
+      "fileMatch": [
+        "Makefile"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?\\s+depName=(?<depName>.+?)\\s.*_VERSION\\s+\\?=\\s+(?<currentValue>.+)"
+      ]
+    }
+  ],
   "packageRules": [
     {
       "description": "Auto-merge Github Actions",
