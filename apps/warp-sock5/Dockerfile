@@ -1,4 +1,4 @@
-FROM alpine:3.21
+FROM alpine:3.22
 
 # renovate: datasource=github-releases depName=pufferffish/wireproxy
 ENV WIREPROXY_VERSION=1.0.9
