@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/alpine:3.21
+FROM public.ecr.aws/docker/library/alpine:3.22
 
 ARG TARGETPLATFORM
 ARG VERSION
