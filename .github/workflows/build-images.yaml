@@ -76,7 +76,11 @@ jobs:
           if [[ -z "${{ inputs.appsToBuild }}" ]]; then
               matrices=$(python ./scripts/prepare-matrices.py "all" "${{ inputs.pushImages }}" "${{ inputs.force }}")
           else
-              if [[ -z "${{ inputs.channelsToBuild }}" ]]; then
+              # Convert to lowercase for case-insensitive comparison
+              appsToBuild="${{ inputs.appsToBuild }}"
+              if [[ "${appsToBuild,,}" == "all" ]]; then
+                  matrices=$(python ./scripts/prepare-matrices.py "all" "${{ inputs.pushImages }}" "${{ inputs.force }}")
+              elif [[ -z "${{ inputs.channelsToBuild }}" ]]; then
                   matrices=$(python ./scripts/prepare-matrices.py "${{ inputs.appsToBuild }}" "${{ inputs.pushImages }}" "${{ inputs.force }}")
               else
                   matrices=$(python ./scripts/prepare-matrices.py "${{ inputs.appsToBuild }}" "${{ inputs.pushImages }}" "${{ inputs.force }}" "${{ inputs.channelsToBuild }}")
