@@ -49,11 +49,11 @@ class EnterpriseToken < ApplicationRecord
     end
 
     def available_features
-      [:all_features]
+      []
     end
 
     def non_trialling_features
-      [:all_features]
+      []
     end
 
     def trialling_features
@@ -76,6 +76,26 @@ class EnterpriseToken < ApplicationRecord
       true
     end
   end
+
+  delegate :will_expire?,
+           :subscriber,
+           :mail,
+           :company,
+           :domain,
+           :issued_at,
+           :starts_at,
+           :expires_at,
+           :reprieve_days,
+           :reprieve_days_left,
+           :restrictions,
+           :available_features,
+           :plan,
+           :features,
+           :version,
+           :started?,
+           :trial?,
+           :active?,
+           to: :token_object
 
   def token_object
     @token_object ||= Class.new do
@@ -128,7 +148,7 @@ class EnterpriseToken < ApplicationRecord
       end
 
       def available_features
-        [:all_features]
+        []
       end
 
       def plan
@@ -136,9 +156,9 @@ class EnterpriseToken < ApplicationRecord
       end
 
       def features
-        [:all_features]
+        []
       end
-      
+
       def version
         70
       end
@@ -169,64 +189,9 @@ class EnterpriseToken < ApplicationRecord
     end.new
   end
 
-  def will_expire?
-    false
-  end
 
-  def mail
-    "admin@example.com"
-  end
-
-  def subscriber
-    "markasoftware-free-enterprise-mode"
-  end
-
-  def company
-    "markasoftware"
-  end
-
-  def domain
-    "markasoftware.com"
-  end
-
-  def issued_at
-    Time.zone.today - 1
-  end
-
-  def starts_at
-    Time.zone.today - 1
-  end
-
-  def expires_at
-    Time.zone.today + 1
-  end
-
-  def reprieve_days
-    nil
-  end
-
-  def reprieve_days_left
+  def id
     69
-  end
-
-  def restrictions
-    nil
-  end
-
-  def available_features
-    [:all_features]
-  end
-
-  def plan
-    "markasoftware_free_enterprise_mode"
-  end
-
-  def features
-    [:all_features]
-  end
-  
-  def version
-    70
   end
 
   def allows_to?(action)
@@ -241,7 +206,6 @@ class EnterpriseToken < ApplicationRecord
     false
   end
 
-  # Missing instance methods from original
   def expiring_soon?
     false
   end
@@ -251,8 +215,24 @@ class EnterpriseToken < ApplicationRecord
   end
 
   def statuses
-    []
-  end
+      statuses = []
+      if trial?
+        statuses << :trial
+      end
+      if invalid_domain?
+        statuses << :invalid_domain
+      end
+      if !started?
+        statuses << :not_active
+      elsif expiring_soon?
+        statuses << :expiring_soon
+      elsif in_grace_period?
+        statuses << :in_grace_period
+      elsif expired?
+        statuses << :expired
+      end
+      statuses
+    end
 
   def unlimited_users?
     true
@@ -268,18 +248,6 @@ class EnterpriseToken < ApplicationRecord
 
   def days_left
     365000 # A very large number
-  end
-
-  def started?
-    true
-  end
-
-  def trial?
-    false
-  end
-
-  def active?
-    true
   end
 
   def clear_current_tokens_cache
