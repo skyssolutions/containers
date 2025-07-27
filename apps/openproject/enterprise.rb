@@ -1,3 +1,4 @@
+############ https://gist.github.com/markasoftware/f5b2e55a2c2e3abb1f9eefcdf0bfff45    ################
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
 #
@@ -210,7 +211,7 @@ class EnterpriseToken < ApplicationRecord
       def features
         EnterpriseToken.TRUE_FEATURES
       end
-      
+
       def version
         69
       end
@@ -292,7 +293,7 @@ class EnterpriseToken < ApplicationRecord
   def features
     EnterpriseToken.TRUE_FEATURES
   end
-  
+
   def version
     69
   end
