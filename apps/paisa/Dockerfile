@@ -5,7 +5,7 @@ ARG CHANNEL
 ARG PAISA_REPO=https://github.com/ananthakumaran/paisa.git
 
 # Web build stage
-FROM registry.skysolutions.fi/docker.io/node:18-alpine3.19 as web
+FROM registry.skysolutions.fi/docker.io/node:22-alpine3.20 as web
 ARG VERSION
 ARG REVISION
 ARG PAISA_REPO
@@ -26,7 +26,7 @@ RUN git checkout "v${VERSION}"
 RUN npm install && npm run build
 
 # Go build stage
-FROM registry.skysolutions.fi/docker.io/golang:1.21-alpine3.20 as go
+FROM registry.skysolutions.fi/docker.io/golang:1.24-alpine3.20 as go
 ARG VERSION
 ARG REVISION
 ARG PAISA_REPO
