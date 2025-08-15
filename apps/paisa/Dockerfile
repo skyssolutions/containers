@@ -5,7 +5,7 @@ ARG CHANNEL
 ARG PAISA_REPO=https://github.com/ananthakumaran/paisa.git
 
 # Web build stage
-FROM registry.skysolutions.fi/docker.io/node:22-alpine3.20 as web
+FROM registry.skysolutions.fi/docker.io/node:22-alpine3.21 as web
 ARG VERSION
 ARG REVISION
 ARG PAISA_REPO
@@ -26,7 +26,7 @@ RUN git checkout "v${VERSION}"
 RUN npm install && npm run build
 
 # Go build stage
-FROM registry.skysolutions.fi/docker.io/golang:1.24-alpine3.20 as go
+FROM registry.skysolutions.fi/docker.io/golang:1.24-alpine3.21 as go
 ARG VERSION
 ARG REVISION
 ARG PAISA_REPO
@@ -55,7 +55,7 @@ RUN CGO_ENABLED=1 go build \
     -o paisa
 
 # Final runtime stage
-FROM registry.skysolutions.fi/docker.io/alpine:3.20
+FROM registry.skysolutions.fi/docker.io/alpine:3.21
 
 # Install runtime dependencies
 RUN apk --no-cache add ca-certificates ledger hledger
