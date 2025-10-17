@@ -6,7 +6,7 @@ ARG CHANNEL
 
 ENV ARGTABLE_VER="2.13"
 # renovate: datasource=github-tags extractVersion=^(?<version>.*)$ depName=XMLTV/xmltv
-ENV XMLTV_VER="v1.3.0"
+ENV XMLTV_VER="v1.4.0"
 ENV HOME="/config"
 
 COPY ./apps/tvheadend/patches/ /tmp/patches/
