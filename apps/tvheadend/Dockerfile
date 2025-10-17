@@ -5,7 +5,7 @@ ARG VERSION
 ARG CHANNEL
 
 ENV ARGTABLE_VER="2.13"
-# renovate: datasource=github-tags extractVersion=^v(?<version>.*)$ depName=XMLTV/xmltv
+# renovate: datasource=github-tags extractVersion=^(?<version>.*)$ depName=XMLTV/xmltv
 ENV XMLTV_VER="v1.3.0"
 ENV HOME="/config"
 
