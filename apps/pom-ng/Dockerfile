@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/debian:12
+FROM public.ecr.aws/docker/library/debian:13
 
 ENV DEBIAN_FRONTEND noninteractive
 
