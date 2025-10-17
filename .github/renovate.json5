@@ -19,13 +19,25 @@
   "customManagers": [
     {
       "customType": "regex",
+      "description": "Match Makefile-style VERSION variables",
       "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}",
       "fileMatch": [
-        "Makefile",
-        "Dockerfile",
+        "Makefile"
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?\\s+depName=(?<depName>.+?)\\s.*_VERSION\\s+\\?=\\s+(?<currentValue>.+)"
+      ]
+    },
+    {
+      "customType": "regex",
+      "description": "Match Dockerfile ENV variables ending in _VER",
+      "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}",
+      "fileMatch": [
+        "(^|/|\\.)Dockerfile$",
+        "(^|/)Dockerfile\\.[^/]*$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?\\s+depName=(?<depName>.+?)\\s+ENV\\s+\\w+_VER=\"(?<currentValue>.+)\""
       ]
     }
   ],
