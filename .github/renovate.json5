@@ -21,7 +21,8 @@
       "customType": "regex",
       "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}",
       "fileMatch": [
-        "Makefile"
+        "Makefile",
+        "Dockerfile",
       ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?\\s+depName=(?<depName>.+?)\\s.*_VERSION\\s+\\?=\\s+(?<currentValue>.+)"
