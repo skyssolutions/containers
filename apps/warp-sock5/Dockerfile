@@ -1,7 +1,9 @@
-FROM alpine:3.20
+FROM alpine:3.22
 
+# renovate: datasource=github-releases depName=pufferffish/wireproxy
 ENV WIREPROXY_VERSION=1.0.9
-ENV WGCF_VERSION=2.2.23
+# renovate: datasource=github-releases depName=ViRb3/wgcf
+ENV WGCF_VERSION=2.2.25
 
 RUN uname -m
 

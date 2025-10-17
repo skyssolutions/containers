@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/alpine:3.20.3
+FROM public.ecr.aws/docker/library/alpine:3.22.2
 USER root
 ARG TARGETARCH
 ARG VERSION

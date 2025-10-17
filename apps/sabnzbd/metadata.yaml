@@ -1,10 +1,10 @@
 ---
-app: mergerfs
-semver: false
+app: sabnzbd
+semver: true
 channels:
-  - name: latest
+  - name: stable
     platforms: ["linux/amd64", "linux/arm64"]
     stable: true
     tests:
-      enabled: false
+      enabled: true
       type: web
