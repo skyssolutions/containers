@@ -74,6 +74,7 @@ Container | Channel | Image | Mirror
 [mongo-without-avx-6.3.2](https://github.com/skyssolutions/pkgs/container/mongo-without-avx-6.3.2) | 6.3.2 | registry.skysolutions.fi/library/mongo-without-avx-6.3.2 | ghcr.io/skyssolutions/mongo-without-avx-6.3.2
 [paisa](https://github.com/skyssolutions/pkgs/container/paisa) | latest | registry.skysolutions.fi/library/paisa | ghcr.io/skyssolutions/paisa
 [sabnzbd](https://github.com/skyssolutions/pkgs/container/sabnzbd) | stable | registry.skysolutions.fi/library/sabnzbd | ghcr.io/skyssolutions/sabnzbd
+[tacticalrmm](https://github.com/skyssolutions/pkgs/container/tacticalrmm) | latest | registry.skysolutions.fi/library/tacticalrmm | ghcr.io/skyssolutions/tacticalrmm
 [tvheadend](https://github.com/skyssolutions/pkgs/container/tvheadend) | stable | registry.skysolutions.fi/library/tvheadend | ghcr.io/skyssolutions/tvheadend
 [unpackerr](https://github.com/skyssolutions/pkgs/container/unpackerr) | stable | registry.skysolutions.fi/library/unpackerr | ghcr.io/skyssolutions/unpackerr
 [warp-sock5](https://github.com/skyssolutions/pkgs/container/warp-sock5) | latest | registry.skysolutions.fi/library/warp-sock5 | ghcr.io/skyssolutions/warp-sock5
