@@ -40,7 +40,6 @@ ENV VIRTUAL_ENV=/opt/venv \
     PATH="/opt/venv/bin:$PATH" \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    # Django settings
     DJANGO_SETTINGS_MODULE=tacticalrmm.settings
 
 LABEL org.opencontainers.image.title="TacticalRMM" \
