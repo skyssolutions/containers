@@ -24,7 +24,7 @@ RUN python3 -m venv $VIRTUAL_ENV && \
 RUN git clone --depth 1 --branch v${VERSION} \
     https://github.com/amidaware/tacticalrmm.git /src
 
-RUN git clone --depth 1 --branch ${SCRIPTS_VERSION} \
+RUN git clone --branch ${SCRIPTS_VERSION} \
     https://github.com/amidaware/community-scripts.git /community-scripts
 
 RUN pip install --no-cache-dir -r /src/api/tacticalrmm/requirements.txt
