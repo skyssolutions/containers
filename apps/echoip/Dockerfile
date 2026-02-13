@@ -1,4 +1,4 @@
-FROM registry.skysolutions.fi/docker.io/golang:1.22-bookworm AS build
+FROM registry.skysolutions.fi/docker.io/golang:1.24-bookworm AS build
 
 ARG TARGETPLATFORM
 ARG VERSION
