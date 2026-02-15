@@ -1,4 +1,4 @@
-FROM python:3.11-slim AS builder
+FROM python:3.14-slim AS builder
 
 ARG TARGETPLATFORM
 ARG VERSION
@@ -30,7 +30,7 @@ RUN git clone --branch ${SCRIPTS_VERSION} \
 RUN pip install --no-cache-dir -r /src/api/tacticalrmm/requirements.txt
 
 
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 ARG TARGETPLATFORM
 ARG VERSION
