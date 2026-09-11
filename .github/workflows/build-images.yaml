@@ -176,10 +176,10 @@ jobs:
 
       - name: Setup Goss
         if: ${{ matrix.image.tests_enabled }}
-        uses: e1himself/goss-installation-action@v1
+        uses: e1himself/goss-installation-action@v1.3.0
         with:
-          version: latest
-
+          version: 'v0.4.10'
+          
       - name: Prepare Build Outputs
         id: prepare-build-outputs
         shell: bash
