@@ -176,10 +176,25 @@ jobs:
 
       - name: Setup Goss
         if: ${{ matrix.image.tests_enabled }}
-        uses: e1himself/goss-installation-action@v1.3.0
-        with:
-          version: 'v0.4.10'
-          
+        shell: bash
+        run: |
+          goss_version='v0.4.10'
+          goss_release="https://github.com/goss-org/goss/releases/download/${goss_version}"
+          tmp_dir=$(mktemp -d)
+          trap 'rm -rf "$tmp_dir"' EXIT
+
+          curl --fail --silent --show-error --location \
+            "${goss_release}/goss_0.4.10_linux_x86_64.tar.gz" \
+            --output "${tmp_dir}/goss.tar.gz"
+          tar --extract --gzip --file "${tmp_dir}/goss.tar.gz" --directory "$tmp_dir"
+          install --mode 0755 "${tmp_dir}/goss" /usr/local/bin/goss
+
+          for tool in dgoss dcgoss kgoss; do
+            curl --fail --silent --show-error --location \
+              "${goss_release}/${tool}" --output "${tmp_dir}/${tool}"
+            install --mode 0755 "${tmp_dir}/${tool}" "/usr/local/bin/${tool}"
+          done
+
       - name: Prepare Build Outputs
         id: prepare-build-outputs
         shell: bash
